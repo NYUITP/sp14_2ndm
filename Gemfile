@@ -17,6 +17,7 @@ gem 'bitstamp'
 gem 'protected_attributes'
 gem 'cancan'
 gem 'rolify'
+gem 'bootstrap-sass', '~> 3.1.1'
 
 group :doc do
   gem 'sdoc', '0.3.20', require: false

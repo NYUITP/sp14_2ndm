@@ -35,6 +35,8 @@ GEM
       activesupport (>= 3.1)
       curb (> 0.8.1)
       ruby-hmac (= 0.4.0)
+    bootstrap-sass (3.1.1.0)
+      sass (~> 3.2)
     builder (3.1.4)
     cancan (1.6.10)
     coffee-rails (4.0.1)
@@ -137,6 +139,7 @@ PLATFORMS
 
 DEPENDENCIES
   bitstamp
+  bootstrap-sass (~> 3.1.1)
   cancan
   coffee-rails (= 4.0.1)
   devise

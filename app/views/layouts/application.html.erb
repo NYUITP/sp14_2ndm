@@ -7,20 +7,32 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<%= yield %>
+<nav class="navbar" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#"><img width="200" height="39" src="https://d1w70dc0osrykz.cloudfront.net/static/hg/images/revamp/index.png" alt="logo"></a>
+    </div>
+    <% if user_signed_in? %>
+    <p class="navbar-text navbar-right">Signed in as <%= current_user.email %>. Not you?
+      <%= link_to "Sign Out", destroy_user_session_path, :method => :delete, :class=>"btn btn-default navbar-btn" %>
+      <%= link_to "Edit Profile", edit_user_registration_path, :class=>"btn btn-default navbar-btn" %></p>
+  <% else %>
+    <p class="navbar-text navbar-right">
+      <%= link_to "Sign In", new_user_session_path, :class=>"btn btn-default navbar-btn" %>
+      <%= link_to "Sign Up", new_user_registration_path, :class=>"btn btn-default navbar-btn" %></p>
+  <% end %>
+    
+  </div><!-- /.container-fluid -->
+</nav>
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
-
-<%= yield %>
-
-<div id="user_nav">
-  <% if user_signed_in? %>
-    Signed in as <%= current_user.email %>. Not you?
-    <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
-    <%= link_to "Edit Profile", edit_user_registration_path %>
-  <% else %>
-    <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "sign in", new_user_session_path %>
-  <% end %>
-</div>
-
 </body>
 </html>

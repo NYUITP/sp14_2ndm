@@ -15,6 +15,7 @@ gem 'jbuilder', '1.0.2'
 gem 'devise'
 gem 'bitstamp'
 gem 'protected_attributes'
+gem 'cancan'
 
 group :doc do
   gem 'sdoc', '0.3.20', require: false

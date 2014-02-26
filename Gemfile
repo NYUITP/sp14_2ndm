@@ -18,6 +18,8 @@ gem 'protected_attributes'
 gem 'cancan'
 gem 'rolify'
 gem 'bootstrap-sass', '~> 3.1.1'
+gem 'rest-client'
+gem 'json'
 
 group :doc do
   gem 'sdoc', '0.3.20', require: false

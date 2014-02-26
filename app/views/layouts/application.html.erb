@@ -32,6 +32,28 @@
     
   </div><!-- /.container-fluid -->
 </nav>
+<% if user_signed_in? %>
+<ul class="nav nav-pills nav-stacked">
+  <li class="active">
+    <a>
+      <span class="badge pull-right">$<%= @bitstamp %></span>
+      BitStamp
+    </a>
+  </li>
+  <li class="active">
+    <a>
+      <span class="badge pull-right"><%= @mtgox %></span>
+      MtGox
+    </a>
+  </li>
+  <li class="active">
+    <a>
+      <span class="badge pull-right">$<%= @coinbase %></span>
+      CoinBase
+    </a>
+  </li>
+</ul>
+<% end %>
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
 </body>

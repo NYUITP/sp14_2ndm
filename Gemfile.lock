@@ -98,6 +98,8 @@ GEM
     rake (10.1.1)
     rdoc (3.12.2)
       json (~> 1.4)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     rolify (3.4.0)
     ruby-hmac (0.4.0)
     sass (3.2.14)
@@ -145,10 +147,12 @@ DEPENDENCIES
   devise
   jbuilder (= 1.0.2)
   jquery-rails (= 3.0.4)
+  json
   pg (= 0.15.1)
   protected_attributes
   rails (= 4.0.3)
   rails_12factor (= 0.0.2)
+  rest-client
   rolify
   sass-rails (= 4.0.1)
   sdoc (= 0.3.20)

@@ -1,3 +1,3 @@
 # SecondMarket: Bitcoin Trader
 
-This is the skeleton for BitcoinTrader
+You can view our latest master build at http://polar-depths-9333.herokuapp.com/

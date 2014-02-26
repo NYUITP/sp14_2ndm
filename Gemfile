@@ -16,6 +16,7 @@ gem 'devise'
 gem 'bitstamp'
 gem 'protected_attributes'
 gem 'cancan'
+gem 'rolify'
 
 group :doc do
   gem 'sdoc', '0.3.20', require: false

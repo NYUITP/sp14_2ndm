@@ -1,4 +1,5 @@
 Sp142ndm::Application.routes.draw do
+  ActiveAdmin.routes(self)
   get "home/index"
   root to: "home#index"
   devise_for :users

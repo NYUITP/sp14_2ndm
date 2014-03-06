@@ -32,7 +32,7 @@ class Ability
         can :manage, :all
         can :read, ActiveAdmin::Page, :name => "Dashboard"
     else
-        can :read, :all
+        can :read, User
     end
   end
 end

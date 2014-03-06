@@ -29,10 +29,10 @@ class Ability
     # See the wiki for details:
     # https://github.com/ryanb/cancan/wiki/Defining-Abilities
     if user.has_role? :admin
-        can :manage, User
+        can :manage, :all
         can :read, ActiveAdmin::Page, :name => "Dashboard"
     else
-        can :read, User
+        can :read, :all
     end
   end
 end

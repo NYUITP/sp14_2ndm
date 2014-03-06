@@ -13,8 +13,6 @@ class User < ActiveRecord::Base
   validates_presence_of :username, :email, :password, :case_sensitive => true
   validates_uniqueness_of :email, :case_sensitive => false
   validates_uniqueness_of :username, :case_sensitive => false
-
-  belongs_to :role
  
   before_create :assign_role
  

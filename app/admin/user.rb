@@ -48,20 +48,17 @@ ActiveAdmin.register User do
       f.inputs "Admin Details" do
         f.input :email
         f.input :username
-        f.input :password, :hint => "Not Required if not changing the password"  , :required => false
-        f.input :password_confirmation
-        f.input :roles, :as => :check_boxes
+        f.input :roles, :as => :radio, :required => false
       end
       f.actions
     end
 
   end
 
-  #controller do
-  #  def permitted_params
-  #    params.permit(:user => [:email,:username,:roles,:role_id,:role_ids])
-  #    params.permit(:user_roles => [:user_id, :role_id])
-  #  end
-  #end
+  controller do
+    def permitted_params
+      params.permit(:utf8, :_method, :authenticity_token, :commit, :id, :user => [:email,:username, :password, :password_confirmation, :role_ids])
+    end
+  end
   
 end

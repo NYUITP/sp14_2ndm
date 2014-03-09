@@ -2,11 +2,10 @@ class User < ActiveRecord::Base
   resourcify
 
   rolify
-  
-  attr_accessible :username, :email, :password, :password_confirmation, :remember_me
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-
+  attr_accessible :user_attributes
+  attr_accessible :username, :email, :password, :password_confirmation, :remember_me, :role_ids
+  attr_accessible :username, :email, :password, :password_confirmation, :remember_me, :role_ids, :as => :admin
+  has_one :role, :dependent => :destroy
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
 
@@ -17,7 +16,6 @@ class User < ActiveRecord::Base
   before_create :assign_role
  
   def assign_role
-    # assign a default role if no role is assigned
     self.add_role :user if self.roles.first.nil?
   end
 

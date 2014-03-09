@@ -4,12 +4,10 @@ class User < ActiveRecord::Base
   rolify
   attr_accessible :user_attributes
   attr_accessible :username, :email, :password, :password_confirmation, :remember_me, :role_ids
-  attr_accessible :username, :email, :password, :password_confirmation, :remember_me, :role_ids, :as => :admin
-  has_one :role, :dependent => :destroy
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
 
-  validates_presence_of :username, :email, :password, :case_sensitive => true
+  validates_presence_of :username, :email, :case_sensitive => true
   validates_uniqueness_of :email, :case_sensitive => false
   validates_uniqueness_of :username, :case_sensitive => false
  

@@ -13,7 +13,7 @@ gem 'jquery-rails', '3.0.4'
 gem 'turbolinks', '1.1.1'
 gem 'jbuilder', '1.0.2'
 gem 'devise'
-gem 'bitstamp'
+gem 'bitstamp', github: 'kojnapp/bitstamp'
 gem 'protected_attributes'
 gem 'cancan'
 gem 'rolify'
@@ -23,6 +23,8 @@ gem 'json'
 gem 'activeadmin', github: 'gregbell/active_admin'
 gem 'formtastic'
 gem 'activerecord'
+gem 'coinbase'
+gem 'chartkick'
 
 group :doc do
   gem 'sdoc', '0.3.20', require: false

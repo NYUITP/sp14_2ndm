@@ -17,5 +17,9 @@ class HomeController < ApplicationController
 		end
 	end
   end
-  
+  def ticker
+  	@coinbase = Coinbase::Client.new('9MB2hsDaSXvbevZ4', 'Yakw1TObmQrL2k4OMGcCVZqpdNLsPO2S')
+  	response = "{\"bitstamp\":\""+ Bitstamp::Ticker.last+"\",\"coinbase\":\""+ @coinbase.buy_price(1).format+"\"}"
+  	render :json => response
+  end  
 end

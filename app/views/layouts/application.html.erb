@@ -4,11 +4,30 @@
   <title>sp142ndm</title>
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
     <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
     <%= csrf_meta_tags %>
+    <script>
+      //function updateVals(){
+      //  $.getJSON('https://www.bitstamp.net/api/ticker/?callback=?',function(response){
+//        var bsInfo = response;
+  //      alert(response);
+    //    element = document.getElementById("bsVal");
+      //  var val = element.textContent;
+       // element.textContent = bsInfo;
+        //});
+      //}
+      function updateVals(){
+      var value = <%= Bitstamp::Ticker.last %>
+      var element = document.getElementById("bsVal");
+      var val = element.textContent;
+      element.textContent = value;
+      window.setInterval(updateVals(), 5000);
+    }
+    </script>
 </head>
 <body>
   <div class="navbar navbar-default" role="navigation">
@@ -25,6 +44,8 @@
       </div>
       <% if user_signed_in? %>
         <div class="navbar-text navbar-right">
+          <span class="label label-success" id="bsLbl">Bitstamp:<span id="bsVal">$<%= Bitstamp::Ticker.last %></span></span>
+          <span class="label label-danger" id="cbLbl">Coinbase:<span id="cbVal"><%= @cb2 %></span></span>
           <div class="btn-group">
                   <a class="btn btn-default" data-toggle="dropdown" href="#"><%= current_user.username %></a><a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">    <span class="caret"></span>  </a>
                   <ul class="dropdown-menu">

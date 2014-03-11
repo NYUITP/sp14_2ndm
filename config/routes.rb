@@ -1,5 +1,4 @@
 Sp142ndm::Application.routes.draw do
-  resources :holdings
 
   ActiveAdmin.routes(self)
   get "home/index"

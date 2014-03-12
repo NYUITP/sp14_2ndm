@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140310004359) do
+ActiveRecord::Schema.define(version: 20140311061537) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -28,10 +28,26 @@ ActiveRecord::Schema.define(version: 20140310004359) do
   add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace"
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
 
+  create_table "exchanges", force: true do |t|
+    t.string   "name"
+    t.integer  "nonce"
+    t.string   "signature"
+    t.string   "apikey"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "holdings", force: true do |t|
     t.string   "name"
     t.integer  "user_id"
     t.decimal  "balance"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "organizations", force: true do |t|
+    t.string   "organization_name"
+    t.string   "user_name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

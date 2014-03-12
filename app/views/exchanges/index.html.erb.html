@@ -1,0 +1,33 @@
+<h1>Listing exchanges</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Nonce</th>
+      <th>Signature</th>
+      <th>Apikey</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @exchanges.each do |exchange| %>
+      <tr>
+        <td><%= exchange.name %></td>
+        <td><%= exchange.nonce %></td>
+        <td><%= exchange.signature %></td>
+        <td><%= exchange.apikey %></td>
+        <td><%= link_to 'Show', exchange %></td>
+        <td><%= link_to 'Edit', edit_exchange_path(exchange) %></td>
+        <td><%= link_to 'Destroy', exchange, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Exchange', new_exchange_path %>

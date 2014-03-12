@@ -1,7 +1,79 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
+<script type="text/javascript">
+$(function () {
 
+        $('#graph_con').highcharts({
+          chart: {
+            type: 'spline'
+          },
+          title: {
+            text: 'Bitcoin Prices Comparisons'
+          },
+          xAxis: {
+            categories: ['Feb 10','Feb 11','Feb 12','Feb 13','Feb 14','Feb 15','Feb 16','Feb 17',
+                             'Feb 18','Feb 19','Feb 20','Feb 21','Feb 22','Feb 23','Feb 24','Feb 25',
+                             'Feb 26','Feb 27','Feb 28','Mar 1','Mar 2','Mar 3','Mar 4','Mar 5','Mar 6',
+                             'Mar 7','Mar 8','Mar 9','Mar 10']
+          },
+          yAxis: {
+            title: {
+              text: 'USD/BTC'
+            },
+            labels: {
+              formatter: function() {
+                return this.value +'°'
+              }
+            }
+          },
+          tooltip: {
+            crosshairs: true,
+            shared: true
+          },
+          plotOptions: {
+            spline: {
+              marker: {
+                radius: 4,
+                lineColor: '#666666',
+                lineWidth: 1
+              }
+            }
+          },
+          series:
+          [
+            {
+              name: 'Bitstamp',
+              marker: {
+                symbol: 'square'
+              },
+              data: [687.81,675.1,651.99,604.11,669,655.83,621,633.66,627.7,623.01,561.86,581.35,610.88,610.09,535.49,535,585.24,583,551.89,567.48,566.24,677.69,673,669.99,669.57,632.79,620,640,629.39]
+            }, 
+            {
+              name: 'Coinbase',
+              marker: {
+                symbol: 'diamond'
+              },
+              data: [685.87,685.83,662.89,632.28,651.51,657.82,617.99,639.3,629.77,627.18,582.51,575.62,596.68,614.51,543.73,537.8,589.33,586.18,568.36,571.16,568.68,641.75,678.65,669.13,664.48,634.33,620.01,637.7,628.22]
+            }
+          ]
+        });
+});
+</script>
 <% if user_signed_in? %>
 
       <div class="row">
+        <div class="col-md-8">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <ul class="nav nav-pills nav-stacked">
+                <li>
+                  <div id="graph_con" ></div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
         <div class="col-md-4">
           <div class="panel panel-primary">
             <div class="panel-heading"><h3 class="panel-title">Holdings</h3></div>
@@ -16,17 +88,6 @@
                 <li class="list-group-item">
                   Total
                   <span class="badge"><%= @total %></span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-8">
-          <div class="panel panel-default">
-            <div class="panel-body">
-              <ul class="nav nav-pills nav-stacked">
-                <li>
-                  <%= line_chart @val %>
                 </li>
               </ul>
             </div>

@@ -53,7 +53,16 @@
           }
         });
     }
-    $(document).ready(updateVals());
+    $(document).ready(function(){
+      updateVals();
+      $('#nav_1328069').addClass('nav');
+      $('#nav_1328069').addClass('dropdown');
+      $('#nav_1328069').addClass('navbar-nav');
+      $('#nav_1328069 li.selected').addClass('active');
+      $('.navbar-toggle').click(function(event) {
+        $('.navbar-collapse').collapse('hide');
+      });
+    });
     window.setInterval(updateVals, 10000);
     </script>
     <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
@@ -100,5 +109,4 @@
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
 </div>
-</body>
 </html>

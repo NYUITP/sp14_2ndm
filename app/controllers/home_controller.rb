@@ -26,8 +26,10 @@ class HomeController < ApplicationController
   	render :json => response
   end  
   def balance
-  	@coinbase = Coinbase::Client.new('9MB2hsDaSXvbevZ4', 'Yakw1TObmQrL2k4OMGcCVZqpdNLsPO2S')
-  	response = "{\"bitstamp\":\""+ Bitstamp.balance.to_s+"\",\"coinbase\":\""+ @coinbase.balance.fractional.to_s+"\"}"
-  	render :json => response
+  	if user_signed_in?
+	  	@coinbase = Coinbase::Client.new('9MB2hsDaSXvbevZ4', 'Yakw1TObmQrL2k4OMGcCVZqpdNLsPO2S')
+	  	response = "{\"bitstamp\":\""+ Bitstamp.balance.to_s+"\",\"coinbase\":\""+ @coinbase.balance.fractional.to_s+"\"}"
+	  	render :json => response
+  	end
   end 
 end

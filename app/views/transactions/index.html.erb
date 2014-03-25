@@ -1,0 +1,30 @@
+<h1>Listing transactions</h1>
+
+<table border='1'>
+  <thead>
+    <tr>
+      <th>UserName </th>
+      <th>Created At </th>
+      <th>Btc </th>
+      <th>Usd </th>
+      <th>Exchange Id </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @transactions.each do |transaction| %>
+      <tr>
+        <td><%= transaction.username %> </td>
+        <td><%= transaction.created_at %> </td>
+        <td><%= transaction.btc %> </td>
+        <td><%= transaction.usd %> </td>
+        <td><%= transaction.exchangeid %> </td>
+        <td><%= link_to 'Show', transaction %> </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Transaction', new_transaction_path %>

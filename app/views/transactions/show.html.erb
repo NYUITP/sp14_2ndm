@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>UserName:</strong>
+  <%= @transaction.username %>
+</p>
+
+<p>
+  <strong>Created At:</strong>
+  <%= @transaction.created_at %>
+</p>
+
+<p>
+  <strong>Btc:</strong>
+  <%= @transaction.btc %>
+</p>
+
+<p>
+  <strong>Usd:</strong>
+  <%= @transaction.usd %>
+</p>
+
+<p>
+  <strong>Exchangeid:</strong>
+  <%= @transaction.exchangeid %>
+</p>
+
+<%= link_to 'Back', transactions_path %>

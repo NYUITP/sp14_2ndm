@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140311061537) do
+ActiveRecord::Schema.define(version: 20140325151330) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -62,6 +62,15 @@ ActiveRecord::Schema.define(version: 20140311061537) do
 
   add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
   add_index "roles", ["name"], name: "index_roles_on_name"
+
+  create_table "transactions", force: true do |t|
+    t.decimal  "btc"
+    t.decimal  "usd"
+    t.integer  "exchangeid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "username"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

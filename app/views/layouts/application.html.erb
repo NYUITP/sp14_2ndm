@@ -14,7 +14,7 @@
       function updateVals(){
         jQuery.ajax({ 
           type: 'GET',
-          url: 'home/ticker' ,
+          url: '/home/ticker' ,
           dataType: 'json', 
           success: function(data) { 
             var bsInfo = data.bitstamp;

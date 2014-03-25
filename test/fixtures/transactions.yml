@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  userid: 1
+  time: 2014-03-25 10:46:30
+  btc: 9.99
+  usd: 9.99
+  exchangeid: 1
+
+two:
+  userid: 1
+  time: 2014-03-25 10:46:30
+  btc: 9.99
+  usd: 9.99
+  exchangeid: 1

@@ -1,11 +1,14 @@
 Sp142ndm::Application.routes.draw do
 
+  resources :transactions
+
   ActiveAdmin.routes(self)
   get "home/index"
   root to: "home#index"
   devise_for :users
 
   get 'home/ticker' => 'home#ticker'
+  get 'home/balance' => 'home#balance'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -6,6 +6,7 @@ class ExchangesController < InheritedResources::Base
      redirect_to @exchange
    end 
    
+
    private
    def exchange_params
     params.require(:exchange).permit(exchange: [:name],exchange: [:nonce], exchange:[:signature],exchange: [:apikey])

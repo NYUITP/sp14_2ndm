@@ -20,6 +20,7 @@ ActiveAdmin.register User do
       column :current_sign_in_at
       column :last_sign_in_at
       column :sign_in_count
+      column :organization
       default_actions
     end
     filter :email
@@ -27,6 +28,7 @@ ActiveAdmin.register User do
     filter :current_sign_in_at
     filter :last_sign_in_at
     filter :sign_in_count
+    filter :organization
 
     show do
       h3 user.username
@@ -34,6 +36,7 @@ ActiveAdmin.register User do
       attributes_table do
         row :email
         row :username
+        row :organization
       end
       table_for  user.roles do
         column "Role" do |role|
@@ -49,6 +52,7 @@ ActiveAdmin.register User do
         f.input :email
         f.input :username
         f.input :roles, :as => :radio, :required => false
+        f.input :organization, :as => :select, :label_method => :organization_name
       end
       f.actions
     end
@@ -57,7 +61,22 @@ ActiveAdmin.register User do
 
   controller do
     def permitted_params
-      params.permit(:utf8, :_method, :authenticity_token, :commit, :id, :user => [:email,:username, :password, :password_confirmation, :role_ids])
+      params.permit(:utf8, :_method, :authenticity_token, :commit, :id, :user => [:email,:username, :password, :password_confirmation, :role_ids, :organization_id])
+    end
+    def update
+      update! do |format|
+        format.html { redirect_to '/admin/users' }
+      end
+    end
+    def create
+      create! do |format|
+        format.html { redirect_to '/admin/users' }
+      end
+    end
+    def destroy
+      destroy! do |format|
+        format.html { redirect_to '/admin/users' }
+      end
     end
   end
   

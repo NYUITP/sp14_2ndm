@@ -33,10 +33,8 @@ ActiveAdmin.register Exchange do
         row :name
         row :nonce
         row :signature
-        row :apikey
-       
+        row :apikey 
       end
- 
     end
 
     form do |f|

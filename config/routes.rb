@@ -1,6 +1,8 @@
 Sp142ndm::Application.routes.draw do
 
   resources :transactions
+  resources :exchanges
+  resources :organizations
 
   ActiveAdmin.routes(self)
   get "home/index"

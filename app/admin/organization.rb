@@ -16,18 +16,18 @@ ActiveAdmin.register Organization do
   ActiveAdmin.register Organization do
     index do
       column :organization_name
-      column :user_name
+      #column :user_name
       default_actions
     end
     filter :organization_name
-    filter :user_name
+    #filter :user_name
   
     show do
       h3 organization.organization_name
  
       attributes_table do
         row :organization_name
-        row :user_name
+        #row :user_name
       end
       #table_for  user.roles do
       # column "Role" do |role|
@@ -41,7 +41,7 @@ ActiveAdmin.register Organization do
     form do |f|
       f.inputs "Admin Details" do
         f.input :organization_name
-        f.input :user_name
+        #f.input :user_name
         #f.input :roles, :as => :radio, :required => false
       end
       f.actions
@@ -51,7 +51,8 @@ ActiveAdmin.register Organization do
 
   controller do
     def permitted_params
-      params.permit(:utf8, :_method, :authenticity_token, :commit, :id, :organization => [:organization_name, :user_name])
+      #params.permit(:utf8, :_method, :authenticity_token, :commit, :id, :organization => [:organization_name, :user_name])
+      params.permit(:utf8, :_method, :authenticity_token, :commit, :id, :organization => [:organization_name])
     end
   end
   

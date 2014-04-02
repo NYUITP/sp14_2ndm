@@ -174,21 +174,30 @@
               </ul>
             </div>
           </div>
-        </div>
-        
-          <div class="col-md-4">
           <div class="panel panel-primary">
             <div class="panel-heading"><h3 class="panel-title">Alerts</h3></div>
             <div class="panel-body">
               <ul class="list-group">
                   <li class="list-group-item">
                     Alert Range
-                    <span class="badge" id="bsBal"><%= text_field "10", "Price Difference", "size" => 15 %></span>
+                    <span >
+                      <div class="input-group">
+                        <span class="input-group-addon">$</span>
+                        <input type="text" class="form-control">
+                        <span class="input-group-btn">
+                          <button class="btn btn-default" type="button">Go!</button>
+                        </span>
+                      </div>
+                    </span>
                   </li>
               </ul>
             </div>
           </div>
         </div>
+        </div>
+        
+          <div class="col-md-4">
+          
       </div>
 <%= yield %>
 <% end %>

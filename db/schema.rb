@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140328062708) do
+ActiveRecord::Schema.define(version: 20140401043854) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -37,9 +37,16 @@ ActiveRecord::Schema.define(version: 20140328062708) do
     t.datetime "updated_at"
   end
 
+  create_table "exchanges_organizations", id: false, force: true do |t|
+    t.integer "exchange_id"
+    t.integer "organization_id"
+  end
+
+  add_index "exchanges_organizations", ["organization_id"], name: "index_exchanges_organizations_on_organization_id"
+
   create_table "holdings", force: true do |t|
     t.string   "name"
-    t.integer  "user_id",    null: false
+    t.integer  "user_id"
     t.decimal  "balance"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -85,9 +92,11 @@ ActiveRecord::Schema.define(version: 20140328062708) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "username"
+    t.integer  "organization_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["organization_id"], name: "index_users_on_organization_id"
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
   create_table "users_roles", id: false, force: true do |t|

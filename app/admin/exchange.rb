@@ -54,6 +54,21 @@ ActiveAdmin.register Exchange do
       #params.require(:exchange).permit(:name, :nonce, :signature, :apikey)
       params.permit(:utf8, :_method, :authenticity_token, :commit, :id, :exchange => [:name,:nonce, :signature, :apikey])
     end
+    def update
+      update! do |format|
+        format.html { redirect_to '/admin/exchanges' }
+      end
+    end
+    def create
+      create! do |format|
+        format.html { redirect_to '/admin/exchanges' }
+      end
+    end
+    def destroy
+      destroy! do |format|
+        format.html { redirect_to '/admin/exchanges' }
+      end
+    end
   end
   
 end

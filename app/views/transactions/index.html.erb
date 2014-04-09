@@ -1,30 +1,31 @@
-<h1>Listing transactions</h1>
-
-<table border='1'>
-  <thead>
-    <tr>
-      <th>UserName </th>
-      <th>Created At </th>
-      <th>Btc </th>
-      <th>Usd </th>
-      <th>Exchange Id </th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @transactions.each do |transaction| %>
+<div class="container">
+  <table class="table table-striped">
+    <thead>
       <tr>
-        <td><%= transaction.username %> </td>
-        <td><%= transaction.created_at %> </td>
-        <td><%= transaction.btc %> </td>
-        <td><%= transaction.usd %> </td>
-        <td><%= transaction.exchangeid %> </td>
-        <td><%= link_to 'Show', transaction %> </td>
+        <th>ID</th>
+        <th>UserName </th>
+        <th>Created At </th>
+        <th>Btc </th>
+        <th>Usd </th>
+        <th>Exchange Id </th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @transactions.each do |transaction| %>
+        <tr>
+          <td><%= link_to transaction.id, transaction %> </td>
+          <td><%= transaction.username %> </td>
+          <td><%= transaction.created_at %> </td>
+          <td><%= transaction.btc %> </td>
+          <td><%= transaction.usd %> </td>
+          <td><%= transaction.exchangeid %> </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
 <br>
 
-<%= link_to 'New Transaction', new_transaction_path %>
+<a href="javascript:history.back()">Back</a><br/>

@@ -1,28 +1,28 @@
+<% if user_signed_in? %>
+
+      <div class="container">
+        <table class="table table-striped">
+          <tbody>
+            <tr>
+              <th>UserName</th>
+              <th>Created At</th>
+              <th>Btc</th>
+              <th>Usd</th>
+              <th>Exchangeid</th>
+            </tr>
+            <tr>
+              <td><%= @transaction.username %></td>
+              <td><%= @transaction.created_at %></td>
+              <td><%= @transaction.btc %></td>
+              <td><%= @transaction.usd %></td>
+              <td><%= @transaction.exchangeid %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <%= yield %>
+<% end %>
+
 <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>UserName:</strong>
-  <%= @transaction.username %>
-</p>
-
-<p>
-  <strong>Created At:</strong>
-  <%= @transaction.created_at %>
-</p>
-
-<p>
-  <strong>Btc:</strong>
-  <%= @transaction.btc %>
-</p>
-
-<p>
-  <strong>Usd:</strong>
-  <%= @transaction.usd %>
-</p>
-
-<p>
-  <strong>Exchangeid:</strong>
-  <%= @transaction.exchangeid %>
-</p>
 
 <%= link_to 'Back', transactions_path %>

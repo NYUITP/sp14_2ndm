@@ -128,7 +128,7 @@
       function updateBals(){
         jQuery.ajax({ 
           type: 'GET',
-          url: 'home/balance' ,
+          url: '/home/balance' ,
           dataType: 'json', 
           success: function(data) { 
             var bsInfo = data.bitstamp;
@@ -160,7 +160,7 @@
         </div>
         <div class="col-md-4">
           <div class="panel panel-primary">
-            <div class="panel-heading"><h3 class="panel-title">Holdings</h3></div>
+            <div class="panel-heading"><h3 class="panel-title"><%= link_to 'Holdings', '/holdings' %></h3></div>
             <div class="panel-body">
               <ul class="list-group">
                   <li class="list-group-item">
@@ -184,9 +184,10 @@
                       <div class="input-group">
                         <span class="input-group-addon">$</span>
                         <input type="text" class="form-control">
-                        <span class="input-group-btn">
-                          <button class="btn btn-default" type="button">Go!</button>
-                        </span>
+                          <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Go!</button>
+                          </span>
+                        </input>
                       </div>
                     </span>
                   </li>
@@ -194,10 +195,6 @@
             </div>
           </div>
         </div>
-        </div>
-        
-          <div class="col-md-4">
-          
       </div>
 <%= yield %>
 <% end %>

@@ -1,31 +1,44 @@
-<h1>Listing holdings</h1>
+<script>
+      function updateBals(){
+        jQuery.ajax({ 
+          type: 'GET',
+          url: '/home/balance' ,
+          dataType: 'json', 
+          success: function(data) { 
+            var bsInfo = data.bitstamp;
+            element = document.getElementById("bsHol");
+            element.textContent = bsInfo;
+            
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>User</th>
-      <th>Balance</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @holdings.each do |holding| %>
+            var cbInfo = data.coinbase;
+            element = document.getElementById("cbHol");
+            element.textContent = cbInfo;
+          }
+        });
+    }
+    window.setInterval(updateBals, 10000);
+</script>
+<h1>Holdings</h1>
+<div class="container">
+  <table class="table table-striped">
+    <thead>
       <tr>
-        <td><%= holding.name %></td>
-        <td><%= holding.user_id %></td>
-        <td><%= holding.balance %></td>
-        <td><%= link_to 'Show', holding %></td>
-        <td><%= link_to 'Edit', edit_holding_path(holding) %></td>
-        <td><%= link_to 'Destroy', holding, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Exchange</th>
+        <th>Balance</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
+    <tbody>
+        <tr>
+          <td>Bitstamp</td>
+          <td id="bsHol"><%= Bitstamp.balance.to_s %></td>
+        </tr>
+        <tr>
+          <td>Coinbase</td>
+          <td id="cbHol"><%= @coinbase.balance.fractional.to_s %></td>
+        </tr>
+    </tbody>
+  </table>
+</div>
 <br>
-
-<%= link_to 'New Holding', new_holding_path %>
+<a href="javascript:history.back()">Back</a><br/>

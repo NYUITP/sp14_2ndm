@@ -1,5 +1,7 @@
 Sp142ndm::Application.routes.draw do
 
+  resources :alerts
+
   resources :transactions
   resources :exchanges
   resources :organizations

@@ -79,4 +79,7 @@ Sp142ndm::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+ ActionMailer::Base.delivery_method = :smtp 
+ ActionMailer::Base.smtp_settings = { :address => "localhost", :port => 1025, :domain => "everydayrails.com" }
 end

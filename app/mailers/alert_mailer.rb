@@ -1,10 +1,12 @@
 class AlertMailer < ActionMailer::Base
-  default from: "pratik.shah@nyu.edu"
+  default from: "btrader@secondmarket.com"
 
-def alert_email(user)
-    @user = user
+def alert_email(alert)
+    @alert = alert
+    #change this url later
     @url  = 'http://localhost:3000/users/sign_in'
-    mail(to: @user.email, subject: 'Arbitrage Opportunity!')
+    #mail(to: current_user.email, subject: 'Arbitrage Opportunity!')
+    mail(to: 'pks284@nyu.edu', subject: 'Arbitrage Opportunity!')
   end
 
 end

@@ -25,6 +25,10 @@ gem 'formtastic'
 gem 'activerecord'
 gem 'coinbase'
 gem 'chartkick'
+gem 'mail'
+gem 'mailcatcher'
+gem 'whenever'
+
 
 group :doc do
   gem 'sdoc', '0.3.20', require: false

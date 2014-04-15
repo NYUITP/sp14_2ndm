@@ -1,5 +1,5 @@
 class OrganizationsController < InheritedResources::Base
-  before_filter :configure_permitted_parameters, if: :organizatios_controller?
+  before_filter :configure_permitted_parameters, if: :organizations_controller?
   def new
      @organization = Organization.new(org_params)
      #@organization.save

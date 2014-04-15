@@ -1,6 +1,15 @@
 <% if user_signed_in? %>
+<script type="text/javascript">
+navdash = document.getElementById("navdash");
+      navtrans = document.getElementById("navtrans");
+      navtran = document.getElementById("navtran");
+      navhold = document.getElementById("navhold");
+      navdash.className = ""
+      navtrans.className = ""
+      navtran.className = "active"
+      navhold.className = ""
+</script>
 
-      <div class="container">
         <table class="table table-striped">
           <tbody>
             <tr>
@@ -19,10 +28,7 @@
             </tr>
           </tbody>
         </table>
-      </div>
-      <%= yield %>
 <% end %>
 
-<p id="notice"><%= notice %></p>
 
 <%= link_to 'Back', transactions_path %>

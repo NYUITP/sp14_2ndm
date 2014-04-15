@@ -81,6 +81,14 @@
         <a href="/home/index"><img class="navbar-brand" src="https://en.bitcoin.it/w/images/en/c/cb/BC_Logotype.png" alt="logo"></a>
       </div>
       <% if user_signed_in? %>
+      <div  id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active" id="navdash"><a href="/home/index">Dashboard</a></li>
+        <li class="" id="navtrans"><a href="/transactions/new">Buy/Sell</a></li>
+        <li class="" id="navtran"><a href="/transactions">Transactions</a></li>
+        <li class="" id="navhold"><a href="/holdings">Holdings</a></li>
+      </ul>
+    </div>
         <div class="navbar-text navbar-right">
           <span class="label label-primary" id="bsLbl">Bitstamp:<span id="bsVal">$<%= Bitstamp::Ticker.last %></span></span>
           <span class="label label-primary" id="cbLbl">Coinbase:<span id="cbVal"><%= @cb2 %></span></span>

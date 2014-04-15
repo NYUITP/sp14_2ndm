@@ -1,4 +1,13 @@
 <script>
+navdash = document.getElementById("navdash");
+      navtrans = document.getElementById("navtrans");
+      navtran = document.getElementById("navtran");
+      navhold = document.getElementById("navhold");
+      navdash.className = ""
+      navtrans.className = ""
+      navtran.className = ""
+      navhold.className = "active"
+
       function updateBals(){
         jQuery.ajax({ 
           type: 'GET',

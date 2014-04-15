@@ -1,4 +1,6 @@
-<%= form_for(@transaction) do |f| %>
+<div class = "row">
+  <div class="col-md-6">
+  <%= form_for(@transaction) do |f| %>
   <% if @transaction.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@transaction.errors.count, "error") %> prohibited this transaction from being saved:</h2>
@@ -11,23 +13,48 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :username %><br>
-    <%= f.text_field :username, :value => current_user.username %>
+  <table class="table">
+    <tr>
+      <td>
+        <%= f.label :username %>
+      </td>
+      <td>
+        <%= f.text_field :username, :value => current_user.username %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= f.label :btc %>
+      </td>
+      <td>
+        <%= f.text_field :btc %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= f.label :exchangeid %>
+      </td>
+      <td>
+        <%= f.collection_select(:exchangeid, Exchange.all, :id, :name) %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= f.label :order_type %>
+      </td>
+      <td>
+        <%= f.select(:order_type, [['Buy','Buy'],['Sell','Sell']]) %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      </td>
+      <td>
+        <%= f.submit %>
+      </td>
+    </tr>
+  </table>
+  <%= f.hidden_field :usd, :value => 0 %>
+  <% end %>
   </div>
-  <div class="field">
-    <%= f.label :btc %><br>
-    <%= f.text_field :btc %>
-  </div>
-  <div class="field">
-    <%= f.label :usd %><br>
-    <%= f.text_field :usd %>
-  </div>
-  <div class="field">
-    <%= f.label :exchangeid %><br>
-    <%= f.collection_select(:exchangeid, Exchange.all, :id, :name) %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

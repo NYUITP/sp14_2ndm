@@ -1,3 +1,3 @@
 class Transaction < ActiveRecord::Base
-	attr_protected nil
+	attr_accessible :username, :btc, :exchangeid,:order_type,:usd
 end

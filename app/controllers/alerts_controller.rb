@@ -3,11 +3,11 @@ class AlertsController < InheritedResources::Base
   # POST /alerts.json
   def create
      @alert = Alert.new(params[:alert])
-     
+     @alert.username = current_user.username
      respond_to do |format|     
      if @alert.save
      # Tell the UserMailer to send a welcome email after save
-     AlertMailer.alert_email(@alert).deliver
+     AlertMailer.alert_email(@alert, current_user).deliver
   mail = Mail.new do
   from    'pandyashah@gmail.com'
   to      'pks284@nyu.edu'

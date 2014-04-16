@@ -160,6 +160,31 @@
               <ul class="nav nav-pills nav-stacked">
                 <li> 
                   <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+<table cellpadding='5' style='width: 100%; table-layout: fixed'>
+<tr>
+<td valign='top'>
+	<div class='bars_links'>
+showing change bars for last:
+<span class='active 1m' style='display: none;'>
+current
+</span>
+<span class='inactive current'>
+<a href="Graph_Bitstamp_Realtime.html">current</a>
+</span>
+<span class='active 1m' style='display: none;'>
+month
+</span>
+<span class='inactive month'>
+<a href="Graph_Bitstamp_Monthly.html">month</a>
+</span>
+<span class='active 1y' style='display: none;'>
+year
+</span>
+<span class='inactive year'>
+<a href="Graph_Bitstamp_Yearly.html">year</a>
+</span>
+</div>
+</td></tr></table>
                 </li>
               </ul>
             </div>
@@ -172,7 +197,7 @@
               <ul class="list-group">
                   <li class="list-group-item">
                     Bitstamp
-                    <span class="badge" id="bsBal"><%= Bitstamp.balance.to_s %></span>
+                    <span class="badge" id="bsBal"><!--%= Bitstamp.balance.to_s %--></span>
                   </li>
                   <li class="list-group-item">
                     Coinbase

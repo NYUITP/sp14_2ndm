@@ -19,17 +19,25 @@ class HomeController < ApplicationController
 			#@total = @total + holding.balance
 		#end
 	end
-  end
+  end 
   def ticker
   	@coinbase = Coinbase::Client.new('9MB2hsDaSXvbevZ4', 'Yakw1TObmQrL2k4OMGcCVZqpdNLsPO2S')
-  	response = "{\"bitstamp\":\""+ Bitstamp::Ticker.last+"\",\"coinbase\":\""+ @coinbase.buy_price(1).format+"\"}"
+  	#response = "{\"bitstamp\":\""+ Bitstamp::ticker.last.to_s+"\",\"coinbase\":\""+ @coinbase.buy_price(1).format+"\"}"
+  	response = "{\"bitstamp\":\""+ 500.to_s+"\",\"coinbase\":\""+ @coinbase.buy_price(1).format+"\"}"
   	render :json => response
   end  
   def balance
-  	if user_signed_in?
 	  	@coinbase = Coinbase::Client.new('9MB2hsDaSXvbevZ4', 'Yakw1TObmQrL2k4OMGcCVZqpdNLsPO2S')
-	  	response = "{\"bitstamp\":\""+ Bitstamp.balance.to_s+"\",\"coinbase\":\""+ @coinbase.balance.fractional.to_s+"\"}"
-	  	render :json => response
-  	end
+	  	base_url = "http://localhost:4000/bitstamp_svcs/balance"
+	  	print "i am here 1"
+	  	#response = RestClient.get base_url
+		
+		#resource = RestClient::Resource.new 'http://localhost:4000/bitstamp_svcs/balance' 
+		response = RestClient.get 'http://localhost:4000/bitstamp_svcs/balance?key=oo&signature=ooo&nonce=ijijiji'
+		data = JSON.load response
+		print data
+	  	reply = "{\"bitstamp\":\""+ data['btc_balance'] +"\",\"coinbase\":\""+ @coinbase.balance.fractional.to_s+"\"}"
+	  	render :json => reply
+
   end 
 end

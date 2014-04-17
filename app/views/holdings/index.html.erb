@@ -25,6 +25,7 @@ navdash = document.getElementById("navdash");
           }
         });
     }
+    updateBals();
     window.setInterval(updateBals, 10000);
 </script>
 <h1>Holdings</h1>
@@ -40,11 +41,11 @@ navdash = document.getElementById("navdash");
     <tbody>
         <tr>
           <td>Bitstamp</td>
-          <td id="bsHol"><%= Bitstamp.balance.to_s %></td>
+          <td id="bsHol"></td>
         </tr>
         <tr>
           <td>Coinbase</td>
-          <td id="cbHol"><%= @coinbase.balance.fractional.to_s %></td>
+          <td id="cbHol"></td>
         </tr>
     </tbody>
   </table>

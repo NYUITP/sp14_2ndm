@@ -149,6 +149,7 @@
           }
         });
     }
+    updateBals();
     window.setInterval(updateBals, 10000);
 </script>
 <% if user_signed_in? %>
@@ -172,7 +173,7 @@
               <ul class="list-group">
                   <li class="list-group-item">
                     Bitstamp
-                    <span class="badge" id="bsBal"><%= Bitstamp.balance.to_s %></span>
+                    <span class="badge" id="bsBal"><span><!--</span>-->
                   </li>
                   <li class="list-group-item">
                     Coinbase

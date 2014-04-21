@@ -81,5 +81,5 @@ Sp142ndm::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
  ActionMailer::Base.delivery_method = :smtp 
- ActionMailer::Base.smtp_settings = { :address => "localhost", :port => 1025, :domain => "everydayrails.com" }
+ ActionMailer::Base.smtp_settings = { :address => "smtp.gmail.com", :port => 587, :domain => "gmail.com" }
 end

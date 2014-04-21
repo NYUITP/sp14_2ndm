@@ -12,10 +12,9 @@ def alert_email(alert,current_user)
 
 def send_alert(alert)
     @alert = alert
-    @user = @alert.user
     #change this url later
     @url  = 'http://localhost:3000/users/sign_in'
-    mail(to: @user.email, subject: 'Arbitrage Opportunity')
+    mail(to: @alert.user.email, subject: 'Arbitrage Opportunity')
     #mail(to: 'pks284@nyu.edu', subject: 'Arbitrage Opportunity!')
 end
 

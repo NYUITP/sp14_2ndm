@@ -4,7 +4,7 @@
 # http://en.wikipedia.org/wiki/Cron
 
 set :environment, "development"
-set :output, {:error => "/var/log/syslog.log", :standard => "/var/log/syslog.log"}
+#set :output, {:error => "/var/log/syslog.log", :standard => "/var/log/syslog.log"}
 
 # Example:
 #
@@ -22,8 +22,9 @@ set :output, {:error => "/var/log/syslog.log", :standard => "/var/log/syslog.log
 
 # Learn more: http://github.com/javan/whenever
 every '* * * * *' do
-
-  rake "s_namespace:priceHistory"
+  
+  rake "s_namespace:trigger"
+  #rake "s_namespace:priceHistory"
 #%x(bundle exec rake s_namespace:priceHistory)
 #Rake::Task['s_namespace:priceHistory'].execute
 

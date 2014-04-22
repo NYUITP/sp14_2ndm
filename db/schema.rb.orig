@@ -14,8 +14,8 @@
 <<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20140422053213) do
 =======
-ActiveRecord::Schema.define(version: 20140416204916) do
->>>>>>> f8b57ff5dbc86e04bec0ea568dbe70f36ef98b34
+ActiveRecord::Schema.define(version: 20140416064355) do
+>>>>>>> Slave_ST
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -33,11 +33,11 @@ ActiveRecord::Schema.define(version: 20140416204916) do
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
 
   create_table "alerts", force: true do |t|
+    t.integer  "user_id"
     t.float    "price_difference"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "username"
-    t.integer  "user_id"
   end
 
   create_table "exchanges", force: true do |t|
@@ -71,9 +71,14 @@ ActiveRecord::Schema.define(version: 20140416204916) do
   end
 
   create_table "price_histories", force: true do |t|
+<<<<<<< HEAD
     t.datetime "time"
     t.decimal  "coinbase"
     t.decimal  "bitstamp"
+=======
+    t.decimal  "Coinbase"
+    t.decimal  "Bitstamp"
+>>>>>>> Slave_ST
     t.datetime "created_at"
     t.datetime "updated_at"
   end

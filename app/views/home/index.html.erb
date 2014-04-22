@@ -89,8 +89,8 @@
 
     var updateInterval = 60000;
     // initial value
-    var yValue1 = parseFloat(jsonResponse[1].Coinbase);
-    var yValue2 = parseFloat(jsonResponse[1].Bitstamp);
+    var yValue1 = parseFloat(jsonResponse[1].coinbase);
+    var yValue2 = parseFloat(jsonResponse[1].bitstamp);
     //var time = parseFloat(jsonResponse[1].updated_at);
     //alert(time);
     //alert(parseFloat(jsonResponse[0].created_at));
@@ -119,8 +119,8 @@
         // adding random value and rounding it to two digits.
         //yValue1 = Math.round((yValue1 + deltaY1)*100)/100;
         //yValue2 = Math.round((yValue2 + deltaY2)*100)/100;
-	yValue1 = parseFloat(jsonResponse[i].Coinbase);
-	yValue2 = parseFloat(jsonResponse[i].Bitstamp);
+	yValue1 = parseFloat(jsonResponse[i].coinbase);
+	yValue2 = parseFloat(jsonResponse[i].bitstamp);
          // pushing the new values
         dataPoints1.push({
           x: time.getTime(),

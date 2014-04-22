@@ -4,8 +4,22 @@
 <script src="https://googledrive.com/host/0B6j6xmB1Ii0mX0dMb3NjWk85bEk/canvasjs.min.js"></script>
 <script type="text/javascript">
   window.onload = function () {
-
+    var request = new XMLHttpRequest();
+    //request.onload = callback;
+    request.open("get", "http://localhost:3000/home/history", false);
+    request.setRequestHeader("Content-Type", "application/json");
+    request.send(null);
+    //alert(request.responseText);
+    var jsonResponse = 	JSON.parse(request.responseText);
+   
+//for(var i=0;i<jsonResponse.data.length;i++)
+//{
+      //alert(jsonResponse[1].Bitstamp);
+//}
+  //  var res = jsonResponse['response'];
+//alert(res[0]['bitstamp']);
     // dataPoints
+	
     var dataPoints1 = [];
     var dataPoints2 = [];
 
@@ -63,20 +77,15 @@
           }
     });
 
-    navdash = document.getElementById("navdash");
-      navtrans = document.getElementById("navtrans");
-      navtran = document.getElementById("navtran");
-      navhold = document.getElementById("navhold");
-      navdash.className = "active"
-      navtrans.className = ""
-      navtran.className = ""
-      navhold.className = ""
 
-    var updateInterval = 3000;
+
+    var updateInterval = 60000;
     // initial value
-    var yValue1 = 570;
-    var yValue2 = 560;
-
+    var yValue1 = parseFloat(jsonResponse[1].Coinbase);
+    var yValue2 = parseFloat(jsonResponse[1].Bitstamp);
+    //var time = parseFloat(jsonResponse[1].updated_at);
+    //alert(time);
+    //alert(parseFloat(jsonResponse[0].created_at));
     var time = new Date;
     time.setHours(9);
     time.setMinutes(30);
@@ -85,32 +94,35 @@
     // starting at 9.30 am
 
     var updateChart = function (count) {
-      count = count || 1;
-
+    count = count || 1;
+      //alert(count);
       // count is number of times loop runs to generate random dataPoints.
 
-      for (var i = 0; i < count; i++) {
+      for (var i = 0; i < jsonResponse.length; i++) {
 
         // add interval duration to time
         time.setTime(time.getTime()+ updateInterval);
-
-
+	
+	
         // generating random values
-        var deltaY1 = .5 + Math.random() *(-.5-.5);
-        var deltaY2 = .5 + Math.random() *(-.5-.5);
-
+        //var deltaY1 = .5 + Math.random() *(-.5-.5);
+        //var deltaY2 = .5 + Math.random() *(-.5-.5);
+	
         // adding random value and rounding it to two digits.
-        yValue1 = Math.round((yValue1 + deltaY1)*100)/100;
-        yValue2 = Math.round((yValue2 + deltaY2)*100)/100;
-
-        // pushing the new values
+        //yValue1 = Math.round((yValue1 + deltaY1)*100)/100;
+        //yValue2 = Math.round((yValue2 + deltaY2)*100)/100;
+	yValue1 = parseFloat(jsonResponse[i].Coinbase);
+	yValue2 = parseFloat(jsonResponse[i].Bitstamp);
+         // pushing the new values
         dataPoints1.push({
           x: time.getTime(),
-          y: yValue1
+//x: time,          
+y: yValue1
         });
         dataPoints2.push({
           x: time.getTime(),
-          y: yValue2
+//x: time,
+y: yValue2
         });
 
 
@@ -125,7 +137,7 @@
     };
 
     // generates first set of dataPoints
-    updateChart(3000);
+    updateChart(600000);
 
     // update chart after specified interval
     setInterval(function(){updateChart()}, updateInterval);
@@ -160,32 +172,28 @@
               <ul class="nav nav-pills nav-stacked">
                 <li> 
                   <div id="chartContainer" style="height: 300px; width: 100%;"></div>
-<table cellpadding='5' style='width: 100%; table-layout: fixed'>
-<tr>
-<td valign='top'>
-	<div class='bars_links'>
-showing change bars for last:
-<span class='active 1m' style='display: none;'>
-current
-</span>
-<span class='inactive current'>
-<a href="Graph_Bitstamp_Realtime.html">current</a>
-</span>
-<span class='active 1m' style='display: none;'>
-month
-</span>
-<span class='inactive month'>
-<a href="Graph_Bitstamp_Monthly.html">month</a>
-</span>
-<span class='active 1y' style='display: none;'>
-year
-</span>
-<span class='inactive year'>
-<a href="Graph_Bitstamp_Yearly.html">year</a>
-</span>
-</div>
-</td></tr></table>
                 </li>
+              </ul>
+            </div>
+          </div>
+	  <div class="panel panel-primary">
+            <div class="panel-heading"><h3 class="panel-title"><%= link_to 'Alerts', '/alerts' %></h3>
+	    </div>
+            <div class="panel-body">
+              <ul class="list-group">
+                  <li class="list-group-item">
+                    Alert Range (Set Price Difference)
+                    <span >
+                      <div class="input-group">
+                        <span class="input-group-addon">$</span>
+                        <input type="text" class="form-control">
+                          <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Go!</button>
+                          </span>
+                        </input>
+                      </div>
+                    </span>
+                  </li>
               </ul>
             </div>
           </div>
@@ -206,18 +214,31 @@ year
               </ul>
             </div>
           </div>
-          <div class="panel panel-primary">
-            <div class="panel-heading"><h3 class="panel-title">Alerts</h3></div>
+	 <div class="panel panel-primary">
+            <div class="panel-heading"><h3 class="panel-title">Trade</h3></div>
             <div class="panel-body">
               <ul class="list-group">
                   <li class="list-group-item">
-                    Alert Range
+                    Bitstamp
                     <span >
                       <div class="input-group">
-                        <span class="input-group-addon">$</span>
+                        <span class="input-group-addon">Qty</span>
                         <input type="text" class="form-control">
                           <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">Go!</button>
+                            <button class="btn btn-default" type="button">Buy/Sell</button>
+                          </span>
+                        </input>
+                      </div>
+                    </span>
+                  </li>
+		  <li class="list-group-item">
+                    CoinBase
+                    <span >
+                      <div class="input-group">
+                        <span class="input-group-addon">Qty</span>
+                        <input type="text" class="form-control">
+                          <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Buy/Sell</button>
                           </span>
                         </input>
                       </div>
@@ -227,6 +248,7 @@ year
             </div>
           </div>
         </div>
+          
       </div>
 <%= yield %>
 <% end %>

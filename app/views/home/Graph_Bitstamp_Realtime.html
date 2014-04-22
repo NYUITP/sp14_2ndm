@@ -14,13 +14,13 @@
 		var chart = new CanvasJS.Chart("chartContainer",{
 			zoomEnabled: true,
 			title: {
-				text: "Bitcoin Realtime Price Comparison"
+				text: "Bitcoin Price Comparison"
 			},
 			toolTip: {
 				shared: true
 
 			},
-			legend: {																																				
+			legend: {
 				verticalAlign: "top",
 				horizontalAlign: "center",
                                 fontSize: 14,
@@ -491,31 +491,6 @@
 <body>
 	<div id="chartContainer" style="height: 300px; width: 100%;">
 	</div>
-<table cellpadding='5' style='width: 100%; table-layout: fixed'>
-<tr>
-<td valign='top'>
-	<div class='bars_links'>
-showing change bars for last:
-<span class='active 1m' style='display: none;'>
-current
-</span>
-<span class='inactive current'>
-<a href="Graph_Bitstamp_Realtime.html">current</a>
-</span>
-<span class='active 1m' style='display: none;'>
-month
-</span>
-<span class='inactive month'>
-<a href="Graph_Bitstamp_Monthly.html">month</a>
-</span>
-<span class='active 1y' style='display: none;'>
-year
-</span>
-<span class='inactive year'>
-<a href="Graph_Bitstamp_Yearly.html">year</a>
-</span>
-</div>
-</td></tr></table>
 </body>
 
 

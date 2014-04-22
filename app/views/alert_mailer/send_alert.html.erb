@@ -4,10 +4,10 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Welcome to Bitcoin Trader, Pratik<!--%= @alert.user.username %--></h1>
+    <h1>Welcome to Bitcoin Trader, <%= @alert.user.username %></h1>
     <p>
       This is an alert for an arbitrage opportunity! Login to place your trade.
-      your username is: Pratik<!--%= @alert.user.username %-->.<br>
+      your username is: <%= @alert.user.username %>.<br>
     </p>
     <p>
       To login to the site, just follow this link: <%= @url %>.

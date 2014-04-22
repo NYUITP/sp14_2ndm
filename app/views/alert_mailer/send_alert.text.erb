@@ -1,8 +1,8 @@
-Welcome Bitcoin Trader, Pratik
+Welcome Bitcoin Trader, <%= @alert.user.username %>
 ===============================================
  
 This is an alert for an arbitrage opportunity! Login to place your trade.
-      your username is:Pratik
+      your username is:<%= @alert.user.username %>
  
 To login to the site, just follow this link: <%= @url %>.
  

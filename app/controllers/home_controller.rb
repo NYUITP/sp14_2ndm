@@ -47,7 +47,8 @@ class HomeController < ApplicationController
 		x.save
 		response = PriceHistory.all		
 		render :json => response
-			
+
+		
 	end
   end 
 end

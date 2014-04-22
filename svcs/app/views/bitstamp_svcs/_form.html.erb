@@ -1,0 +1,17 @@
+<%= form_for(@bitstamp_svc) do |f| %>
+  <% if @bitstamp_svc.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bitstamp_svc.errors.count, "error") %> prohibited this bitstamp_svc from being saved:</h2>
+
+      <ul>
+      <% @bitstamp_svc.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

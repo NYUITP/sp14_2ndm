@@ -1,0 +1,25 @@
+<h1>Listing bitstamp_svcs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @bitstamp_svcs.each do |bitstamp_svc| %>
+      <tr>
+        <td><%= link_to 'Show', bitstamp_svc %></td>
+        <td><%= link_to 'Edit', edit_bitstamp_svc_path(bitstamp_svc) %></td>
+        <td><%= link_to 'Destroy', bitstamp_svc, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Bitstamp svc', new_bitstamp_svc_path %>

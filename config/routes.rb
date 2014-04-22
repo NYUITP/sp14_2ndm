@@ -1,5 +1,7 @@
 Sp142ndm::Application.routes.draw do
 
+  resources :alerts
+
   resources :transactions
   resources :exchanges
   resources :organizations
@@ -12,6 +14,8 @@ Sp142ndm::Application.routes.draw do
 
   get 'home/ticker' => 'home#ticker'
   get 'home/balance' => 'home#balance'
+
+  get 'home/history' => 'home#history'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

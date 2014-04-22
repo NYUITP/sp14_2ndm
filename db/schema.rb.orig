@@ -12,10 +12,10 @@
 # It's strongly recommended that you check this file into your version control system.
 
 <<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20140328062708) do
+ActiveRecord::Schema.define(version: 20140422053213) do
 =======
-ActiveRecord::Schema.define(version: 20140401043854) do
->>>>>>> master
+ActiveRecord::Schema.define(version: 20140416204916) do
+>>>>>>> f8b57ff5dbc86e04bec0ea568dbe70f36ef98b34
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -31,6 +31,14 @@ ActiveRecord::Schema.define(version: 20140401043854) do
   add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
   add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace"
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
+
+  create_table "alerts", force: true do |t|
+    t.float    "price_difference"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "username"
+    t.integer  "user_id"
+  end
 
   create_table "exchanges", force: true do |t|
     t.string   "name"
@@ -62,6 +70,14 @@ ActiveRecord::Schema.define(version: 20140401043854) do
     t.datetime "updated_at"
   end
 
+  create_table "price_histories", force: true do |t|
+    t.datetime "time"
+    t.decimal  "coinbase"
+    t.decimal  "bitstamp"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "roles", force: true do |t|
     t.string   "name"
     t.integer  "resource_id"
@@ -80,7 +96,11 @@ ActiveRecord::Schema.define(version: 20140401043854) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "username"
+    t.string   "order_type"
+    t.integer  "exchange_id"
   end
+
+  add_index "transactions", ["exchange_id"], name: "index_transactions_on_exchange_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

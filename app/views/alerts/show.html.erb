@@ -1,0 +1,36 @@
+<script>
+navtrans = document.getElementById("navtrans");
+      navtran = document.getElementById("navtran");
+      navhold = document.getElementById("navhold");
+      navalert = document.getElementById("navalert");
+      navdash.className = ""
+      navtrans.className = ""
+      navtran.className = ""
+      navhold.className = ""
+      navalert.className = "active"
+</script>
+<p id="notice"><%= notice %></p>
+
+
+<table class="table">
+
+<thead>
+    <tr>
+      <th>Price Difference</th>
+      <th>User</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+      <tr>
+        <td><%= @alert.price_difference %></td>
+        <td><%= @alert.user.username %></td>
+        <td><%= link_to 'Edit', edit_alert_path(@alert) %></td>
+        <td><%= link_to 'Destroy', @alert, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+  </tbody>
+</table>
+
+<%= link_to 'Back', alerts_path %>

@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   attr_accessible :user_attributes
   attr_accessible :username, :email, :password, :password_confirmation, :remember_me, :role_ids, :organization_id
   belongs_to :organization
+  has_many :alerts
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
 
   validates_presence_of :username, :email, :case_sensitive => true

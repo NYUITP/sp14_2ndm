@@ -1,0 +1,40 @@
+<script>
+navtrans = document.getElementById("navtrans");
+      navtran = document.getElementById("navtran");
+      navhold = document.getElementById("navhold");
+      navalert = document.getElementById("navalert");
+      navdash.className = ""
+      navtrans.className = ""
+      navtran.className = ""
+      navhold.className = ""
+      navalert.className = "active"
+</script>
+<h1>Alerts</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Price Difference</th>
+      <th>User</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @alerts.where(:user => current_user).each do |alert| %>
+      <tr>
+        <td><%= alert.price_difference %></td>
+        <td><%= alert.user.username %></td>
+        <td><%= link_to 'Show', alert %></td>
+        <td><%= link_to 'Edit', edit_alert_path(alert) %></td>
+        <td><%= link_to 'Destroy', alert, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Alert', new_alert_path %>

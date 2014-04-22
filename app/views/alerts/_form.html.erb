@@ -1,0 +1,38 @@
+<%= form_for(@alert) do |f| %>
+  <% if @alert.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@alert.errors.count, "error") %> prohibited this alert from being saved:</h2>
+
+      <ul>
+      <% @alert.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+
+	<table class="table">
+  <thead>
+    <tr>
+      <th>Price Difference</th>
+      <th>User</th>
+	<th><th>
+    </tr>
+  </thead>
+
+  <tbody>
+      <tr>
+        <td><%= f.text_field :price_difference %></td>
+        <td><%= f.text_field :user_id, :value=> current_user.username %></td>
+        <td><%= f.submit %></td>
+
+      </tr>
+<tr>
+
+  </tbody>
+</table>	
+  </div>
+
+<% end %>

@@ -67,9 +67,8 @@ ActiveRecord::Schema.define(version: 20140422053213) do
   end
 
   create_table "price_histories", force: true do |t|
-    t.datetime "time"
-    t.decimal  "coinbase"
-    t.decimal  "bitstamp"
+    t.decimal  "Coinbase"
+    t.decimal  "Bitstamp"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

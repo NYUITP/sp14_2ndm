@@ -23,6 +23,9 @@ set :environment, "development"
 # Learn more: http://github.com/javan/whenever
 every '* * * * *' do
   
-  #command "home/pratik/Downloads/Compare_rate.sh"
-  rake "my_namespace:poll"
+  rake "s_namespace:trigger"
+  #rake "s_namespace:priceHistory"
+#%x(bundle exec rake s_namespace:priceHistory)
+#Rake::Task['s_namespace:priceHistory'].execute
+
 end

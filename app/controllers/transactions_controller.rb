@@ -7,13 +7,14 @@ require 'time'
 require 'securerandom'
 
 class TransactionsController < InheritedResources::Base
+
     include HTTParty
     @types = {"Buy"=>"Buy","Sell"=>"Sell"}
     def initialize()
     	options={}
       @api_key = '9MB2hsDaSXvbevZ4'
       @api_secret = 'Yakw1TObmQrL2k4OMGcCVZqpdNLsPO2S'
-
+      @coinbase = Coinbase::Client.new('9MB2hsDaSXvbevZ4', 'Yakw1TObmQrL2k4OMGcCVZqpdNLsPO2S')
       # defaults
       options[:base_uri] ||= 'https://coinbase.com/api/v1'
       @base_uri = options[:base_uri]
@@ -87,7 +88,8 @@ class TransactionsController < InheritedResources::Base
 
         @coinbase = Coinbase::Client.new('9MB2hsDaSXvbevZ4', 'Yakw1TObmQrL2k4OMGcCVZqpdNLsPO2S')
         amount = params[:transaction][:btc]
-        print amount
+        price = params[:transaction][:usd]
+        #print amount
         #options={}
         #options[:base_uri] ||= 'https://coinbase.com/api/v1'
       	#@base_uri = options[:base_uri]
@@ -95,11 +97,26 @@ class TransactionsController < InheritedResources::Base
  		#options.each do |k,v|
         #	self.class.send k, v
       	#end
+        params[:transaction][:exchange] = Exchange.where(:id => params[:transaction][:exchangeid].to_i).first
+        #print params[:transaction][:exchange]
         type = params[:transaction][:order_type]
-        if(type == "Buy")
-          response = post('/buys', :qty => amount).to_hash
-        elsif(type == "Sell")
-          response = post('/sells', :qty => amount).to_hash
+        if(params[:transaction][:exchangeid].to_i == 2)
+          if(type == "Buy")
+            response = post('/buys', :qty => amount).to_hash
+          elsif(type == "Sell")
+            response = post('/sells', :qty => amount).to_hash
+          else
+          end
+        elsif(params[:transaction][:exchangeid].to_i == 1)
+          if(type == "Buy")
+            response = RestClient.get 'http://localhost:4000/bitstamp_svcs/buy?key=oo&signature=ooo&nonce=ijijiji&amount='+amount+'&price='+price
+            data = JSON.load response
+            #print data
+          elsif(type == "Sell")
+            response = RestClient.get 'http://localhost:4000/bitstamp_svcs/sell?key=oo&signature=ooo&nonce=ijijiji&amount='+amount+'&price='+price
+            data = JSON.load response
+          else
+          end
         else
         end
         
@@ -123,12 +140,27 @@ class TransactionsController < InheritedResources::Base
         #r = @coinbase.buy!(amount)
         #puts r.error
         print response
-        if(type == "Buy")
-          params[:transaction][:btc] = response["transfer"]["btc"]["amount"]
-          params[:transaction][:usd] = response["transfer"]["total"]["amount"]
-        elsif(type == "Sell")
-          params[:transaction][:btc] = response["transfer"]["btc"]["amount"].to_f*-1
-          params[:transaction][:usd] = response["transfer"]["total"]["amount"].to_f*-1
+        if(params[:transaction][:exchangeid].to_i == 2)
+          if(type == "Buy")
+            params[:transaction][:btc] = response["transfer"]["btc"]["amount"]
+            params[:transaction][:usd] = response["transfer"]["total"]["amount"]
+          elsif(type == "Sell")
+            params[:transaction][:btc] = response["transfer"]["btc"]["amount"].to_f*-1
+            params[:transaction][:usd] = response["transfer"]["total"]["amount"].to_f*-1
+          else
+          end
+        elsif(params[:transaction][:exchangeid].to_i == 1)
+          if(type == "Buy")
+            print data["amount"]
+            print data["price"]
+            print "ABCDEFG"
+            #params[:transaction][:btc] = response["amount"]
+            params[:transaction][:usd] = data["price"].to_f
+          elsif(type == "Sell")
+            params[:transaction][:btc] = params[:transaction][:btc].to_f*-1
+            params[:transaction][:usd] = data["price"].to_f*-1
+          else
+          end
         else
         end
         

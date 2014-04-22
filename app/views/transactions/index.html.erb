@@ -13,10 +13,11 @@ navdash = document.getElementById("navdash");
       <tr>
         <th>ID</th>
         <th>UserName </th>
-        <th>Created At </th>
+        <th>Type</th>
         <th>Btc </th>
         <th>Usd </th>
-        <th>Exchange Id </th>
+        <th>Exchange</th>
+        <th>Created At </th>
       </tr>
     </thead>
 
@@ -25,10 +26,11 @@ navdash = document.getElementById("navdash");
         <tr>
           <td><%= link_to transaction.id, transaction %> </td>
           <td><%= transaction.username %> </td>
-          <td><%= transaction.created_at %> </td>
+          <td><%= transaction.order_type %> </td>
           <td><%= transaction.btc %> </td>
           <td><%= transaction.usd %> </td>
-          <td><%= transaction.exchangeid %> </td>
+          <td><%= transaction.exchange.name %> </td>
+          <td><%= transaction.created_at %> </td>
         </tr>
       <% end %>
     </tbody>

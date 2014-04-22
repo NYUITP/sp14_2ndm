@@ -14,17 +14,19 @@ navdash = document.getElementById("navdash");
           <tbody>
             <tr>
               <th>UserName</th>
-              <th>Created At</th>
+              <th>Type</th>
               <th>Btc</th>
               <th>Usd</th>
-              <th>Exchangeid</th>
+              <th>Exchange</th>
+              <th>Created At</th>
             </tr>
             <tr>
               <td><%= @transaction.username %></td>
-              <td><%= @transaction.created_at %></td>
+              <td><%= @transaction.order_type %></td>
               <td><%= @transaction.btc %></td>
               <td><%= @transaction.usd %></td>
-              <td><%= @transaction.exchangeid %></td>
+              <td><%= @transaction.exchange.name %></td>
+              <td><%= @transaction.created_at %></td>
             </tr>
           </tbody>
         </table>

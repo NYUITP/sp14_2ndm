@@ -33,6 +33,9 @@ Svcs::Application.routes.draw do
   get 'bitstamp_svcs/balance' => 'bitstamp_svcs#bal'
   get 'bitstamp_svcs/buy' => 'bitstamp_svcs#buy'
   get 'bitstamp_svcs/sell' => 'bitstamp_svcs#sell'
+  get 'coinbase_svcs/balance' => 'coinbase_svcs#bal'
+  get 'coinbase_svcs/buy' => 'coinbase_svcs#sell'
+  get 'coinbase_svcs/sell' => 'coinbase_svcs#sell'
   # Example resource route with sub-resources:
   #   resources :products do
   #     resources :comments, :sales

@@ -36,7 +36,10 @@ class HomeController < ApplicationController
 		response = RestClient.get 'http://localhost:4000/bitstamp_svcs/balance?key=oo&signature=ooo&nonce=ijijiji'
 		data = JSON.load response
 		print data
-	  	reply = "{\"bitstamp\":\""+ data['btc_balance'] +"\",\"coinbase\":\""+ @coinbase.balance.fractional.to_s+"\"}"
+		response2 = RestClient.get 'http://localhost:4000/coinbase_svcs/balance?key=oo&signature=ooo'
+		data2 = JSON.load response2
+		print data2
+	  	reply = "{\"bitstamp\":\""+ data['btc_balance'] +"\",\"coinbase\":\""+ data2['amount']+"\"}"
 	  	render :json => reply
   end
 

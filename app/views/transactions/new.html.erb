@@ -14,29 +14,6 @@
       navtran.className = ""
       navhold.className = ""
     </script>
-    <script>
-      function updateBals(){
-        jQuery.ajax({ 
-          type: 'GET',
-          url: '/home/balance' ,
-          dataType: 'json', 
-          success: function(data) { 
-            var bsInfo = data.bitstamp;
-            element = document.getElementById("bsBal");
-            element.textContent = bsInfo;
-            
-
-            var cbInfo = data.coinbase;
-            element = document.getElementById("cbBal");
-            element.textContent = cbInfo;
-          }
-        });
-    }
-    updateBals();
-    window.setInterval(updateBals, 10000);
-</script>
 
 			<%= render 'form' %>
-
-			<%= link_to 'Back', transactions_path %>
 

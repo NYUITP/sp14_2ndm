@@ -1,5 +1,8 @@
-<div class = "row">
-  <div class="col-md-9">
+
+  <div class="container">
+   <div class="row" >
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
   <%= form_for(@transaction) do |f| %>
   <% if @transaction.errors.any? %>
     <div id="error_explanation">
@@ -12,60 +15,45 @@
       </ul>
     </div>
   <% end %>
-
-  <table class="table">
+  <div class="panel panel-default">
+  <table class="table table-condensed">
     <tbody>
-            <tr>
-              <th>UserName</th>
-              <th>Btc</th>
-              <th>Usd</th>
-              <th>Exchange</th>
-              <th>Type</th>
-              <th></th>
-            </tr>
-            <tr>
+      <tr>
       <td>
-        <%= f.text_field :username, :value => current_user.username %>
+        <%= f.collection_select(:exchangeid, Exchange.all, :id, :name, {:prompt => "Exchange"}) %>
       </td>
       <td>
-        <%= f.text_field :btc %>
+        <%= f.select(:order_type, [['Order Type',nil],['Buy','Buy'],['Sell','Sell']])%>
+      </td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        <%= f.text_field :btc, :placeholder => "Quantity"%>
       </td>
       <td>
-        <%= f.text_field :usd, :value => 0  %>
+        <%= f.text_field :usd, :placeholder => "Price"   %>
       </td>
-      <td>
-        <%= f.collection_select(:exchangeid, Exchange.all, :id, :name) %>
-      </td>
-      <td>
-        <%= f.select(:order_type, [['Buy','Buy'],['Sell','Sell']]) %>
-      </td>
+    </tr>
+      <tr>
+        <td></td>
       <td>
         <%= f.submit %>
       </td>
+     <td></td>
     </tr>
     <tr>
-      <td colspan=6><p class="text-warning"><em>USD values for LIMIT Buy/Sell supported by Bitstamp Only</em></p></td>
+      <td colspan=3><p class="text-warning"><em>USD values for LIMIT Buy/Sell supported by Bitstamp Only</em></p></td>
     </tr>
   </tbody>
   </table>
   <%= f.hidden_field :exchange, :value => nil %>
+  <%= f.hidden_field :username, :value => current_user.username %>
+</div>
   <% end %>
   </div>
-  <div class="col-md-3">
-          <div class="panel panel-primary">
-            <div class="panel-heading"><h3 class="panel-title"><%= link_to 'Holdings', '/holdings' %></h3></div>
-            <div class="panel-body">
-              <ul class="list-group">
-                  <li class="list-group-item">
-                    Bitstamp
-                    <span class="badge" id="bsBal"><span><!--</span>-->
-                  </li>
-                  <li class="list-group-item">
-                    Coinbase
-                    <span class="badge" id="cbBal"><%= @coinbase.balance.fractional.to_s %></span>
-                  </li>
-              </ul>
-            </div>
-          </div>
-  </div>
+  <div class="col-md-3"></div>
 </div>
+</div>
+

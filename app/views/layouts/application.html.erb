@@ -11,13 +11,15 @@
     <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
     <%= csrf_meta_tags %>
     <script>
+    var bsInfo;
+    var cbInfo
       function updateVals(){
         jQuery.ajax({ 
           type: 'GET',
           url: '/home/ticker' ,
           dataType: 'json', 
           success: function(data) { 
-            var bsInfo = data.bitstamp;
+            bsInfo = data.bitstamp;
             element = document.getElementById("bsVal");
             var val = element.textContent;
             val = val.substring(1);
@@ -34,7 +36,7 @@
             else
               element.className = "label label-danger"
 
-            var cbInfo = data.coinbase;
+            cbInfo = data.coinbase;
             element = document.getElementById("cbVal");
             val = element.textContent;
             val  = val.substring(1);
@@ -53,8 +55,10 @@
           }
         });
     }
+    updateVals();
+    window.setInterval(updateVals, 10000);
     $(document).ready(function(){
-      updateVals();
+      
       $('#nav_1328069').addClass('nav');
       $('#nav_1328069').addClass('dropdown');
       $('#nav_1328069').addClass('navbar-nav');
@@ -63,7 +67,7 @@
         $('.navbar-collapse').collapse('hide');
       });
     });
-    window.setInterval(updateVals, 10000);
+    
     </script>
     <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 </head>

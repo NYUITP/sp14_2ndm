@@ -152,23 +152,40 @@ y: yValue2
   }
 </script>
 <script>
+function round(num) 
+  { return +(Math.round(num + "e+2")  + "e-2");
+  }
       function updateBals(){
         jQuery.ajax({ 
           type: 'GET',
           url: '/home/balance' ,
           dataType: 'json', 
           success: function(data) { 
-            var bsInfo = data.bitstamp;
+            var bsBal = parseFloat(data.bitstamp);
+            var bsBalUSD = round(parseFloat(bsBal)*parseFloat(bsInfo));
             element = document.getElementById("bsBal");
-            element.textContent = bsInfo;
+            element.textContent = bsBal;
+            element = document.getElementById("bsBalUSD");
+            element.textContent = "$"+bsBalUSD;
             
 
-            var cbInfo = data.coinbase;
+            var cbBal = parseFloat(data.coinbase);
+            var cbBalUSD = round(parseFloat(cbBal)*parseFloat(cbInfo.substr(1,cbInfo.length)));
             element = document.getElementById("cbBal");
-            element.textContent = cbInfo;
+            element.textContent = cbBal;
+            element = document.getElementById("cbBalUSD");
+            element.textContent = "$"+cbBalUSD;
+
+            var totBal = round(bsBal+cbBal);
+            var totBalUSD = round(bsBalUSD + cbBalUSD);
+            element = document.getElementById("totBal");
+            element.textContent = totBal;
+            element = document.getElementById("totBalUSD");
+            element.textContent = "$"+totBalUSD;
           }
         });
     }
+    updateVals();
     updateBals();
     window.setInterval(updateBals, 10000);
 </script>
@@ -211,16 +228,33 @@ y: yValue2
           <div class="panel panel-primary">
             <div class="panel-heading"><h3 class="panel-title"><%= link_to 'Holdings', '/holdings' %></h3></div>
             <div class="panel-body">
-              <ul class="list-group">
-                  <li class="list-group-item">
-                    Bitstamp
-                    <span class="badge" id="bsBal"></span>
-                  </li>
-                  <li class="list-group-item">
-                    Coinbase
-                    <span class="badge" id="cbBal"></span>
-                  </li>
-              </ul>
+              <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Exchange</th>
+                      <th>BTC</th>
+                      <th>USD</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                      <tr>
+                        <td>Bitstamp</td>
+                        <td id="bsBal"></td>
+                        <td id="bsBalUSD"></td>
+                      </tr>
+                      <tr>
+                        <td>Coinbase</td>
+                        <td id="cbBal"></td>
+                        <td id="cbBalUSD"></td>
+                      </tr>
+                      <tr class="info">
+                        <td>Total</td>
+                        <td id="totBal"></td>
+                        <td id="totBalUSD"></td>
+                      </tr>
+                  </tbody>
+                </table>
             </div>
           </div>
             

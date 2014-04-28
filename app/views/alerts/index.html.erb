@@ -1,3 +1,4 @@
+
 <script>
 navtrans = document.getElementById("navtrans");
       navtran = document.getElementById("navtran");
@@ -9,7 +10,13 @@ navtrans = document.getElementById("navtrans");
       navhold.className = ""
       navalert.className = "active"
 </script>
-<h1>Alerts</h1>
+<div class="col-md-2"></div>
+  <div class="col-md-8">
+    <div class="panel panel-primary" style="width: 700px;">
+  <!-- Default panel contents -->
+
+                  <div class="panel-heading">Alerts</div>
+<!--h1>Alerts</h1-->
 
 <table class="table">
   <thead>
@@ -37,4 +44,13 @@ navtrans = document.getElementById("navtrans");
 
 <br>
 
+
+
+</div>
+<button type="button" class="btn btn-default">
 <%= link_to 'New Alert', new_alert_path %>
+</button>
+
+</div>
+
+

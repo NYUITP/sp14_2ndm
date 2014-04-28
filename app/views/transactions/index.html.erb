@@ -9,15 +9,21 @@ navdash = document.getElementById("navdash");
       navhold.className = ""
 </script>
 <div class="col-md-2"></div>
-<div class="col-md-8">
-  <table class="table table-condensed table-hover">
+  <div class="col-md-8">
+    <div class="panel panel-primary" style="width: 700px;">
+  <!-- Default panel contents -->
+
+                  <div class="panel-heading">Transactions</div>
+
+                <!--h1>Holdings</h1-->
+              <table class="table table-hover table-condensed table-nonfluid" style="width: 700px;">
     <thead>
       <tr>
         <th>ID</th>
         <th>UserName </th>
         <th>Type</th>
-        <th>Btc </th>
-        <th>Usd </th>
+        <th>BTC </th>
+        <th>USD </th>
         <th>Exchange</th>
         <th>Created At </th>
       </tr>
@@ -36,6 +42,7 @@ navdash = document.getElementById("navdash");
         </tr>
       <% end %>
     </tbody>
-  </table>
-</div>
+               </table>
+    </div>
+  </div>
 <div class="col-md-2"></div>

@@ -124,9 +124,14 @@
   </div>
 <div class="container">
   <%= yield %>
+  <div class="row">
+    <div class="col-md-10"></div>
+    <div class="col-md-2">
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
   <p id="alertBox"></p>
+</div>
+</div>
   <script>
     var alertEvalFunction;
     function evalAlert(priceDiff){

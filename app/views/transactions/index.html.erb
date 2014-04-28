@@ -20,7 +20,7 @@ navdash = document.getElementById("navdash");
     <thead>
       <tr>
         <th>ID</th>
-        <th>UserName </th>
+        <th>Name </th>
         <th>Type</th>
         <th>BTC </th>
         <th>USD </th>
@@ -33,7 +33,7 @@ navdash = document.getElementById("navdash");
       <% @transactions.each do |transaction| %>
         <tr>
           <td><%= link_to transaction.id, transaction %> </td>
-          <td><%= transaction.username %> </td>
+          <td><%= User.where(:username => transaction.username).first.firstname %>&nbsp;<%= User.where(:username => transaction.username).first.lastname %> </td>
           <td><%= transaction.order_type %> </td>
           <td><%= transaction.btc %> </td>
           <td><%= transaction.usd %> </td>

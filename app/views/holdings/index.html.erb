@@ -44,49 +44,43 @@ function round(num)
     updateBals();
     window.setInterval(updateBals, 10000);
 </script>
+<div class="row">
 <div class="col-md-2"></div>
               <div class="col-md-8">
-                <div class="panel panel-primary" style="width: 500px;">
-  <!-- Default panel contents -->
+                <div class="panel panel-primary">
+                  <div class="panel-body">
+                    <table class="table table-hover table-condensed">
+                        <thead>
+                          <tr>
+                            <th>Exchange</th>
+                            <th>BTC</th>
+                            <th>USD</th>
+                          </tr>
+                        </thead>
 
-                  <div class="panel-heading">Holdings</div>
+                        <tbody>
+                            <tr>
+                              <td>Bitstamp</td>
+                              <td id="bsBal"></td>
+                              <td id="bsBalUSD"></td>
+                            </tr>
+                            <tr>
+                              <td>Coinbase</td>
+                              <td id="cbBal"></td>
+                              <td id="cbBalUSD"></td>
+                            </tr>
+                            <tr class="info">
+                              <td>Total</td>
+                              <td id="totBal"></td>
+                              <td id="totBalUSD"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                  </div>
 
-                <!--h1>Holdings</h1-->
-              <table class="table table-hover table-condensed table-nonfluid" style="width: 500px;">
-                  <thead>
-                    <tr>
-                      <th style="width: 150">Exchange</th>
-                      <th>BTC</th>
-                      <th>USD</th>
-                    </tr>
-                  </thead>
+                </div> 
+              </div>        
 
-                  <tbody>
-                      <tr>
-                        <td>Bitstamp</td>
-                        <td id="bsBal"></td>
-                        <td id="bsBalUSD"></td>
-                      </tr>
-                      <tr>
-                        <td>Coinbase</td>
-                        <td id="cbBal"></td>
-                        <td id="cbBalUSD"></td>
-                      </tr>
-                      <tr class="info">
-                        <td>Total</td>
-                        <td id="totBal"></td>
-                        <td id="totBalUSD"></td>
-                      </tr>
-                  </tbody>
-                </table>
-                           <br>
-
-              </div>         
-  <div class="centered">
-    <button type="button" class="btn btn-default">
-      <a href="javascript:history.back()">Back</a>
-    </button>
-  </div>
 <!--a href="javascript:history.back()">Back</a><br/-->
 <div class="col-md-2"></div>
-
+</div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140422053213) do
+ActiveRecord::Schema.define(version: 20140428223148) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -29,11 +29,11 @@ ActiveRecord::Schema.define(version: 20140422053213) do
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
 
   create_table "alerts", force: true do |t|
+    t.integer  "user_id"
     t.float    "price_difference"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "username"
-    t.integer  "user_id"
   end
 
   create_table "exchanges", force: true do |t|
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 20140422053213) do
 
   create_table "holdings", force: true do |t|
     t.string   "name"
-    t.integer  "user_id",    null: false
+    t.integer  "user_id"
     t.decimal  "balance"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -67,8 +67,9 @@ ActiveRecord::Schema.define(version: 20140422053213) do
   end
 
   create_table "price_histories", force: true do |t|
-    t.decimal  "Coinbase"
-    t.decimal  "Bitstamp"
+    t.datetime "time"
+    t.decimal  "coinbase"
+    t.decimal  "bitstamp"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -112,6 +113,8 @@ ActiveRecord::Schema.define(version: 20140422053213) do
     t.datetime "updated_at"
     t.string   "username"
     t.integer  "organization_id"
+    t.string   "firstname"
+    t.string   "lastname"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

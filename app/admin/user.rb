@@ -16,6 +16,8 @@ ActiveAdmin.register User do
   ActiveAdmin.register User do
     index do
       column :email
+      column :firstname
+      column :lastname
       column :username
       column :current_sign_in_at
       column :last_sign_in_at
@@ -24,6 +26,8 @@ ActiveAdmin.register User do
       default_actions
     end
     filter :email
+    filter :firstname
+    filter :lastname
     filter :username
     filter :current_sign_in_at
     filter :last_sign_in_at
@@ -36,6 +40,8 @@ ActiveAdmin.register User do
       attributes_table do
         row :email
         row :username
+        row :firstname
+        row :lastname
         row :organization
       end
       table_for  user.roles do
@@ -51,6 +57,8 @@ ActiveAdmin.register User do
       f.inputs "Admin Details" do
         f.input :email
         f.input :username
+        f.input :firstname
+        f.input :lastname
         f.input :roles, :as => :radio, :required => false
         f.input :organization, :as => :select, :label_method => :organization_name
       end
@@ -61,7 +69,7 @@ ActiveAdmin.register User do
 
   controller do
     def permitted_params
-      params.permit(:utf8, :_method, :authenticity_token, :commit, :id, :user => [:email,:username, :password, :password_confirmation, :role_ids, :organization_id])
+      params.permit(:utf8, :_method, :authenticity_token, :commit, :id, :user => [:email,:username, :password, :password_confirmation, :role_ids, :organization_id, :firstname, :lastname])
     end
     def update
       update! do |format|

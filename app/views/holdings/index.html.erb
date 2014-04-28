@@ -46,11 +46,16 @@ function round(num)
 </script>
 <div class="col-md-2"></div>
               <div class="col-md-8">
-                <h1>Holdings</h1>
-              <table class="table table-hover table-condensed">
+                <div class="panel panel-primary" style="width: 500px;">
+  <!-- Default panel contents -->
+
+                  <div class="panel-heading">Holdings</div>
+
+                <!--h1>Holdings</h1-->
+              <table class="table table-hover table-condensed table-nonfluid" style="width: 500px;">
                   <thead>
                     <tr>
-                      <th>Exchange</th>
+                      <th style="width: 150">Exchange</th>
                       <th>BTC</th>
                       <th>USD</th>
                     </tr>
@@ -75,8 +80,13 @@ function round(num)
                   </tbody>
                 </table>
                            <br>
-<a href="javascript:history.back()">Back</a><br/>
-              </div>         
 
+              </div>         
+  <div class="centered">
+    <button type="button" class="btn btn-default">
+      <a href="javascript:history.back()">Back</a>
+    </button>
+  </div>
+<!--a href="javascript:history.back()">Back</a><br/-->
 <div class="col-md-2"></div>
 

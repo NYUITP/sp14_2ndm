@@ -128,23 +128,28 @@
   <p class="alert"><%= alert %></p>
   <p id="alertBox"></p>
   <script>
+    var alertEvalFunction;
     function evalAlert(priceDiff){
 
       if(cbInfo != null && bsInfo != null){
         diff = Math.abs(parseFloat(bsInfo) - parseFloat(cbInfo.substring(1)));
         if(diff >= priceDiff){
           alertElement = document.getElementById("alertBox");
-          alertElement.textContent = "ATTN: There is a difference of $"+round(diff)+" between the two exchanges!";
-          alertElement.className = "label label-success"
+          alertEvalFunction = setTimeout(function(){evalAlert(priceDiff)}, 1000);
+          alertElement.innerHTML = "<div class=\"alert alert-success alert-dismissable\"><button  onclick=\"window.clearTimeout(alertEvalFunction)\" type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">\&times\;</button>ATTN: There is a difference of $"+round(diff)+" between the two exchanges!</div>";
         }
         else{
           alertElement = document.getElementById("alertBox");
           alertElement.textContent = "";
           alertElement.className = ""
+          alertEvalFunction = setTimeout(function(){evalAlert(priceDiff)}, 1000);
         }
         
       }
-      setInterval(function(){evalAlert(priceDiff)}, 1000);
+      else{
+        alertEvalFunction = setTimeout(function(){evalAlert(priceDiff)}, 1000);
+      }
+      
     }
     //function checkAlerts(){
       updateVals();

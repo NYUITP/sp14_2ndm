@@ -17,15 +17,15 @@
   <thead>
     <tr>
       <th>Price Difference</th>
-      <th>User</th>
+      <!--th>User</th-->
 	<th><th>
     </tr>
   </thead>
 
   <tbody>
       <tr>
-        <td><%= f.text_field :price_difference %></td>
-        <td><%= f.text_field :user_id, :value=> current_user.username %></td>
+        <td>$<%= f.text_field :price_difference %></td>
+        <!--td><%= f.text_field :user_id, :value=> current_user.username %></td-->
         <td><%= f.submit %></td>
 
       </tr>

@@ -81,4 +81,10 @@ class HomeController < ApplicationController
 
 	end
    end
+
+def alertsView
+if user_signed_in?
+	@alerts = Alerts.all
+end
+end
 end

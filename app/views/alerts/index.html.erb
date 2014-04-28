@@ -15,7 +15,7 @@ navtrans = document.getElementById("navtrans");
   <thead>
     <tr>
       <th>Price Difference</th>
-      <th>User</th>
+      <!--th>User</th-->
       <th></th>
       <th></th>
       <th></th>
@@ -25,9 +25,9 @@ navtrans = document.getElementById("navtrans");
   <tbody>
     <% @alerts.where(:user => current_user).each do |alert| %>
       <tr>
-        <td><%= alert.price_difference %></td>
-        <td><%= alert.user.username %></td>
-        <td><%= link_to 'Show', alert %></td>
+        <td>$<%= alert.price_difference %></td>
+        <!--td><%= alert.user.username %></td-->
+        <!--td><%= link_to 'Show', alert %></td-->
         <td><%= link_to 'Edit', edit_alert_path(alert) %></td>
         <td><%= link_to 'Destroy', alert, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

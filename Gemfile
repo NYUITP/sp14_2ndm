@@ -25,6 +25,9 @@ gem 'formtastic'
 gem 'activerecord'
 gem 'coinbase'
 gem 'chartkick'
+gem 'mail'
+gem 'mailcatcher'
+gem 'whenever'
 
 
 group :doc do

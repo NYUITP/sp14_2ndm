@@ -52,7 +52,7 @@
         type: "line",
         xValueType: "dateTime",
         showInLegend: true,
-        name: "Bitstamp",
+        name: "Coinbase",
         dataPoints: dataPoints1
       },
       {
@@ -60,7 +60,7 @@
         type: "line",
         xValueType: "dateTime",
         showInLegend: true,
-        name: "Coinbase" ,
+        name: "Bitstamp" ,
         dataPoints: dataPoints2
       }],
           legend:{
@@ -89,11 +89,16 @@
 
     var updateInterval = 60000;
     // initial value
-    var yValue1 = parseFloat(jsonResponse[1].coinbase);
-    var yValue2 = parseFloat(jsonResponse[1].bitstamp);
+    var yValue1 = parseFloat(jsonResponse[0].coinbase);
+    var yValue2 = parseFloat(jsonResponse[0].bitstamp);
     //var time = parseFloat(jsonResponse[1].updated_at);
     //alert(time);
     //alert(parseFloat(jsonResponse[0].created_at));
+    var s = jsonResponse[jsonResponse.length-1].created_at;
+    var bits = s.split(/\D/);
+    var date = new Date(bits[0], --bits[1], bits[2], bits[3], bits[4]);
+    alert(date);
+
     var time = new Date;
     time.setHours(9);
     time.setMinutes(30);
@@ -137,9 +142,9 @@ y: yValue2
       };
 
       // updating legend text with  updated with y Value
-      chart.options.data[0].legendText = " Bitstamp  $" + yValue1;
-      chart.options.data[1].legendText = " Coinbase  $" + yValue2;
-
+      chart.options.data[0].legendText = " Coinbase  $" + yValue1;
+      chart.options.data[1].legendText = " Bitstamp  $" + yValue2;
+	
       chart.render();
 
     };
@@ -197,32 +202,12 @@ function round(num)
             <div class="panel-body">
               <ul class="nav nav-pills nav-stacked">
                 <li> 
-                  <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+                  <div id="chartContainer" style="height: 375px; width: 100%;"></div>
                 </li>
               </ul>
             </div>
           </div>
-	  <div class="panel panel-primary">
-            <div class="panel-heading"><h3 class="panel-title"><%= link_to 'Alerts', '/alerts' %></h3>
-	    </div>
-            <div class="panel-body">
-              <ul class="list-group">
-                  <li class="list-group-item">
-                    Alert Range (Set Price Difference)
-                    <span >
-                      <div class="input-group">
-                        <span class="input-group-addon">$</span>
-                        <input type="text" class="form-control">
-                          <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">Go!</button>
-                          </span>
-                        </input>
-                      </div>
-                    </span>
-                  </li>
-              </ul>
-            </div>
-          </div>
+	
         </div>
         <div class="col-md-4">
           <div class="panel panel-primary">
@@ -257,9 +242,32 @@ function round(num)
                 </table>
             </div>
           </div>
-            
+  <div class="panel panel-primary">
+            <div class="panel-heading"><h3 class="panel-title"><%= link_to 'Alerts', '/alerts' %></h3>
+	    </div>
+            <div class="panel-body">
+              <ul class="list-group">
+                  <li class="list-group-item">
+                    <span >
+                      <div class="input-group">
+                        <span class="input-group-addon">$</span>
+                        <input type="text" class="form-control">
+                          <!--span class="input-group-btn">
+                            <button class="btn btn-default" type="button"><%= link_to 'New Alert', '/alerts/new' %></button>
+                          </span-->
+                        </input>
+                      </div>
+                    </span>
+                  </li>
+              </ul>
+            </div>
+		<div class="panel-default"><h3 class="panel-title"><%= link_to 'New Alert', '/alerts/new' %></h3>
+		</div>
+	    </div>
+          </div>            
           </div>
         </div>
+
       </div>
 <%= yield %>
 <% end %>

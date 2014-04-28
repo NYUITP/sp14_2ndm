@@ -22,7 +22,7 @@ set :environment, "development"
 
 # Learn more: http://github.com/javan/whenever
 every '* * * * *' do
-  
+  rake "my_namespace:poll"
   rake "s_namespace:trigger"
   #rake "s_namespace:priceHistory"
 #%x(bundle exec rake s_namespace:priceHistory)

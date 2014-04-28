@@ -4,6 +4,7 @@
 <script src="https://googledrive.com/host/0B6j6xmB1Ii0mX0dMb3NjWk85bEk/canvasjs.min.js"></script>
 <script type="text/javascript">
   window.onload = function () {
+
     var request = new XMLHttpRequest();
     //request.onload = callback;
     request.open("get", "http://localhost:3000/home/history", false);
@@ -26,7 +27,7 @@
     var chart = new CanvasJS.Chart("chartContainer",{
       zoomEnabled: true,
       title: {
-        text: "Bitcoin Realtime Price Comparison"
+        //text: "Bitcoin Realtime Price Comparison"
       },
       toolTip: {
         shared: true
@@ -89,8 +90,8 @@
 
     var updateInterval = 60000;
     // initial value
-    var yValue1 = parseFloat(jsonResponse[1].coinbase);
-    var yValue2 = parseFloat(jsonResponse[1].bitstamp);
+    var yValue1 = parseFloat(jsonResponse[0].Coinbase);
+    var yValue2 = parseFloat(jsonResponse[0].Bitstamp);
     //var time = parseFloat(jsonResponse[1].updated_at);
     //alert(time);
     //alert(parseFloat(jsonResponse[0].created_at));
@@ -106,7 +107,7 @@
       //alert(count);
       // count is number of times loop runs to generate random dataPoints.
 
-      for (var i = 0; i < jsonResponse.length; i++) {
+      for (var i = 1; i < jsonResponse.length; i++) {
 
         // add interval duration to time
         time.setTime(time.getTime()+ updateInterval);
@@ -119,8 +120,8 @@
         // adding random value and rounding it to two digits.
         //yValue1 = Math.round((yValue1 + deltaY1)*100)/100;
         //yValue2 = Math.round((yValue2 + deltaY2)*100)/100;
-	yValue1 = parseFloat(jsonResponse[i].coinbase);
-	yValue2 = parseFloat(jsonResponse[i].bitstamp);
+	yValue1 = parseFloat(jsonResponse[i].Coinbase);
+	yValue2 = parseFloat(jsonResponse[i].Bitstamp);
          // pushing the new values
         dataPoints1.push({
           x: time.getTime(),
@@ -193,16 +194,22 @@ function round(num)
 
       <div class="row">
         <div class="col-md-8">
-          <div class="panel panel-default">
+          <div class="panel panel-primary"><div class="panel-heading"><h5 class="panel-title">Bitcoin Realtime Price Comparison</h5>
             <div class="panel-body">
               <ul class="nav nav-pills nav-stacked">
                 <li> 
-                  <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+                  <div id="chartContainer" style="height: 330px; width: 100%;"></div>
                 </li>
-              </ul>
+                <li>
+                 
+                </li>
+		<li>
+                Select an area of the graph to Zoom and Pan
+                </li>
+              </ul></div>
             </div>
           </div>
-	  <div class="panel panel-primary">
+	  <!--div class="panel panel-primary">
             <div class="panel-heading"><h3 class="panel-title"><%= link_to 'Alerts', '/alerts' %></h3>
 	    </div>
             <div class="panel-body">
@@ -222,7 +229,7 @@ function round(num)
                   </li>
               </ul>
             </div>
-          </div>
+          </div-->
         </div>
         <div class="col-md-4">
           <div class="panel panel-primary">
@@ -258,8 +265,33 @@ function round(num)
             </div>
           </div>
             
+          <!--/div>
+        </div-->
+
+
+         <div class="panel panel-primary">
+           <div class="panel-heading"><h3 class="panel-title"><%= link_to 'Alerts', '/alerts' %></h3>
+	   </div>
+             <div class="panel-body">
+              <ul class="list-group">
+                  <li class="list-group-item">
+                    Alert Range (Set Price Difference)
+                    <span >
+                      <div class="input-group">
+                        <span class="input-group-addon">$</span>
+                        <input type="text" class="form-control">
+                          <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Go!</button>
+                          </span>
+                        </input>
+                      </div>
+                    </span>
+                  </li>
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
+   </div>
+ </div>
 <%= yield %>
 <% end %>

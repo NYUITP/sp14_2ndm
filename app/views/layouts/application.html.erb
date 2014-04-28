@@ -11,6 +11,9 @@
     <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
     <%= csrf_meta_tags %>
     <script>
+    function round(num) 
+  { return +(Math.round(num + "e+2")  + "e-2");
+  }
     var bsInfo;
     var cbInfo
       function updateVals(){
@@ -68,6 +71,7 @@
       });
     });
     
+    
     </script>
     <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 </head>
@@ -96,7 +100,7 @@
       </ul>
     </div>
         <div class="navbar-text navbar-right">
-          <span class="label label-primary" id="bsLbl">Bitstamp:<span id="bsVal">$<!--%= Bitstamp::Ticker.last %--></span></span>
+          <span class="label label-primary" id="bsLbl">Bitstamp:<span id="bsVal">$<%= Bitstamp::Ticker.last %></span></span>
           <span class="label label-primary" id="cbLbl">Coinbase:<span id="cbVal"><%= @cb2 %></span></span>
           <div class="btn-group">
                   <a class="btn btn-default" data-toggle="dropdown" href="#"><%= current_user.username %></a><a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">    <span class="caret"></span>  </a>
@@ -122,5 +126,33 @@
   <%= yield %>
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
+  <p id="alertBox"></p>
+  <script>
+    function evalAlert(priceDiff){
+
+      if(cbInfo != null && bsInfo != null){
+        diff = Math.abs(parseFloat(bsInfo) - parseFloat(cbInfo.substring(1)));
+        if(diff >= priceDiff){
+          alertElement = document.getElementById("alertBox");
+          alertElement.textContent = "ATTN: There is a difference of $"+round(diff)+" between the two exchanges!";
+          alertElement.className = "label label-success"
+        }
+        else{
+          alertElement = document.getElementById("alertBox");
+          alertElement.textContent = "";
+          alertElement.className = ""
+        }
+        
+      }
+      setInterval(function(){evalAlert(priceDiff)}, 1000);
+    }
+    //function checkAlerts(){
+      updateVals();
+      <% if user_signed_in? %>
+        <% Alert.all.where(:user => current_user).each do |alert1| %>
+          evalAlert(<%= alert1.price_difference %>);
+        <% end %>
+      <% end %>
+  </script>
 </div>
 </html>

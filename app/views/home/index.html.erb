@@ -153,9 +153,7 @@ y: yValue2
   }
 </script>
 <script>
-function round(num) 
-  { return +(Math.round(num + "e+2")  + "e-2");
-  }
+
       function updateBals(){
         jQuery.ajax({ 
           type: 'GET',
@@ -189,6 +187,7 @@ function round(num)
     updateVals();
     updateBals();
     window.setInterval(updateBals, 10000);
+    
 </script>
 <% if user_signed_in? %>
 

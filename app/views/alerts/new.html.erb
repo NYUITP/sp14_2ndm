@@ -9,8 +9,12 @@ navtrans = document.getElementById("navtrans");
       navhold.className = ""
       navalert.className = "active"
 </script>
-<h1>New alert</h1>
+<h1></h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Back', alerts_path %>
+<div class="col-md-3"></div>
+  <button type="button" class="btn btn-default">
+    <%= link_to 'Back', alerts_path %>
+  </button>
+

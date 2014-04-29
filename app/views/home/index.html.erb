@@ -4,6 +4,7 @@
 <script src="https://googledrive.com/host/0B6j6xmB1Ii0mX0dMb3NjWk85bEk/canvasjs.min.js"></script>
 <script type="text/javascript">
   window.onload = function () {
+
     var request = new XMLHttpRequest();
     //request.onload = callback;
     request.open("get", "http://localhost:3000/home/history", false);
@@ -26,7 +27,7 @@
     var chart = new CanvasJS.Chart("chartContainer",{
       zoomEnabled: true,
       title: {
-        text: "Bitcoin Realtime Price Comparison"
+        //text: "Bitcoin Realtime Price Comparison"
       },
       toolTip: {
         shared: true
@@ -163,9 +164,7 @@ y: yValue2
   }
 </script>
 <script>
-function round(num) 
-  { return +(Math.round(num + "e+2")  + "e-2");
-  }
+
       function updateBals(){
         jQuery.ajax({ 
           type: 'GET',
@@ -199,21 +198,50 @@ function round(num)
     updateVals();
     updateBals();
     window.setInterval(updateBals, 10000);
+    
 </script>
 <% if user_signed_in? %>
 
       <div class="row">
         <div class="col-md-8">
-          <div class="panel panel-default">
+          <div class="panel panel-primary"><div class="panel-heading"><h5 class="panel-title">Bitcoin Realtime Price Comparison</h5>
             <div class="panel-body">
               <ul class="nav nav-pills nav-stacked">
                 <li> 
-                  <div id="chartContainer" style="height: 375px; width: 100%;"></div>
+                  <div id="chartContainer" style="height: 330px; width: 100%;"></div>
                 </li>
-              </ul>
+                <li>
+                 
+                </li>
+		<li>
+                  <i>
+                Select an area of the graph to Zoom and Pan
+                  </i>
+                </li>
+              </ul></div>
             </div>
           </div>
-	
+	  <!--div class="panel panel-primary">
+            <div class="panel-heading"><h3 class="panel-title"><%= link_to 'Alerts', '/alerts' %></h3>
+	    </div>
+            <div class="panel-body">
+              <ul class="list-group">
+                  <li class="list-group-item">
+                    Alert Range (Set Price Difference)
+                    <span >
+                      <div class="input-group">
+                        <span class="input-group-addon">$</span>
+                        <input type="text" class="form-control">
+                          <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Go!</button>
+                          </span>
+                        </input>
+                      </div>
+                    </span>
+                  </li>
+              </ul>
+            </div>
+          </div-->
         </div>
         <div class="col-md-4">
           <div class="panel panel-primary">

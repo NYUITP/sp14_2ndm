@@ -11,6 +11,9 @@
     <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
     <%= csrf_meta_tags %>
     <script>
+    function round(num) 
+  { return +(Math.round(num + "e+2")  + "e-2");
+  }
     var bsInfo;
     var cbInfo
       function updateVals(){
@@ -68,6 +71,7 @@
       });
     });
     
+    
     </script>
     <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 </head>
@@ -88,14 +92,15 @@
       <div  id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="active" id="navdash"><a href="/home/index">Dashboard</a></li>
-        <li class="" id="navtrans"><a href="/transactions/new">Buy/Sell</a></li>
+        <!--li class="" id="navtrans"><a href="/transactions/new">Buy/Sell</a></li-->
+        <li class="" id="navtrans"><a href="/transactions/new">Trade</a></li>
         <li class="" id="navtran"><a href="/transactions">Transactions</a></li>
         <li class="" id="navhold"><a href="/holdings">Holdings</a></li>
         <li class="" id="navalert"><a href="/alerts">Alerts</a></li>
       </ul>
     </div>
         <div class="navbar-text navbar-right">
-          <span class="label label-primary" id="bsLbl">Bitstamp:<span id="bsVal">$<!--%= Bitstamp::Ticker.last %--></span></span>
+          <span class="label label-primary" id="bsLbl">Bitstamp:<span id="bsVal">$<%= Bitstamp::Ticker.last %></span></span>
           <span class="label label-primary" id="cbLbl">Coinbase:<span id="cbVal"><%= @cb2 %></span></span>
           <div class="btn-group">
                   <a class="btn btn-default" data-toggle="dropdown" href="#"><%= current_user.username %></a><a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">    <span class="caret"></span>  </a>
@@ -119,7 +124,45 @@
   </div>
 <div class="container">
   <%= yield %>
+  <div class="row">
+    <div class="col-md-10"></div>
+    <div class="col-md-2">
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
+  <p id="alertBox"></p>
+</div>
+</div>
+  <script>
+    var alertEvalFunction;
+    function evalAlert(priceDiff){
+
+      if(cbInfo != null && bsInfo != null){
+        diff = Math.abs(parseFloat(bsInfo) - parseFloat(cbInfo.substring(1)));
+        if(diff >= priceDiff){
+          alertElement = document.getElementById("alertBox");
+          alertEvalFunction = setTimeout(function(){evalAlert(priceDiff)}, 1000);
+          alertElement.innerHTML = "<div class=\"alert alert-success alert-dismissable\"><button  onclick=\"window.clearTimeout(alertEvalFunction)\" type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">\&times\;</button>ATTN: There is a difference of $"+round(diff)+" between the two exchanges!</div>";
+        }
+        else{
+          alertElement = document.getElementById("alertBox");
+          alertElement.textContent = "";
+          alertElement.className = ""
+          alertEvalFunction = setTimeout(function(){evalAlert(priceDiff)}, 1000);
+        }
+        
+      }
+      else{
+        alertEvalFunction = setTimeout(function(){evalAlert(priceDiff)}, 1000);
+      }
+      
+    }
+    //function checkAlerts(){
+      updateVals();
+      <% if user_signed_in? %>
+        <% Alert.all.where(:user => current_user).each do |alert1| %>
+          evalAlert(<%= alert1.price_difference %>);
+        <% end %>
+      <% end %>
+  </script>
 </div>
 </html>

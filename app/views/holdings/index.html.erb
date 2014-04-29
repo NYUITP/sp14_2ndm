@@ -44,39 +44,55 @@ function round(num)
     updateBals();
     window.setInterval(updateBals, 10000);
 </script>
+<div class="row">
 <div class="col-md-2"></div>
               <div class="col-md-8">
-                <h1>Holdings</h1>
-              <table class="table table-hover table-condensed">
-                  <thead>
-                    <tr>
-                      <th>Exchange</th>
-                      <th>BTC</th>
-                      <th>USD</th>
-                    </tr>
-                  </thead>
+                <div class="panel panel-primary">
+                  <div class="panel-body">
+                    <table class="table table-hover table-condensed">
+                        <thead>
+                          <tr>
+                            <th>Exchange</th>
+                            <th>BTC</th>
+                            <th>USD</th>
+                            <th></th>
+                          </tr>
+                        </thead>
 
-                  <tbody>
-                      <tr>
-                        <td>Bitstamp</td>
-                        <td id="bsBal"></td>
-                        <td id="bsBalUSD"></td>
-                      </tr>
-                      <tr>
-                        <td>Coinbase</td>
-                        <td id="cbBal"></td>
-                        <td id="cbBalUSD"></td>
-                      </tr>
-                      <tr class="info">
-                        <td>Total</td>
-                        <td id="totBal"></td>
-                        <td id="totBalUSD"></td>
-                      </tr>
-                  </tbody>
-                </table>
-                           <br>
-<a href="javascript:history.back()">Back</a><br/>
-              </div>         
+                        <tbody>
+                            <tr>
+                              <td>Bitstamp</td>
+                              <td id="bsBal"></td>
+                              <td id="bsBalUSD"></td>
+                              <td>
+                                <a href="http://localhost:3000/transactions/new?exch=<%= Exchange.where(:name => "Bitstamp").first.id %>" class="btn btn-default">
+                                Transact
+                                </a>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Coinbase</td>
+                              <td id="cbBal"></td>
+                              <td id="cbBalUSD"></td>
+                              <td>
+                                <a href="http://localhost:3000/transactions/new?exch=<%= Exchange.where(:name => "Coinbase").first.id %>" class="btn btn-default">
+                                Transact
+                                </a>
+                              </td>
+                            </tr>
+                            <tr class="info">
+                              <td>Total</td>
+                              <td id="totBal"></td>
+                              <td id="totBalUSD"></td>
+                              <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                  </div>
 
+                </div> 
+              </div>        
+
+<!--a href="javascript:history.back()">Back</a><br/-->
 <div class="col-md-2"></div>
-
+</div>

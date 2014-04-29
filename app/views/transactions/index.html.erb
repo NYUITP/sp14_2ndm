@@ -9,33 +9,37 @@ navdash = document.getElementById("navdash");
       navhold.className = ""
 </script>
 <div class="col-md-2"></div>
-<div class="col-md-8">
-  <table class="table table-condensed table-hover">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>UserName </th>
-        <th>Type</th>
-        <th>Btc </th>
-        <th>Usd </th>
-        <th>Exchange</th>
-        <th>Created At </th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @transactions.each do |transaction| %>
-        <tr>
-          <td><%= link_to transaction.id, transaction %> </td>
-          <td><%= transaction.username %> </td>
-          <td><%= transaction.order_type %> </td>
-          <td><%= transaction.btc %> </td>
-          <td><%= transaction.usd %> </td>
-          <td><%= transaction.exchange.name %> </td>
-          <td><%= transaction.created_at %> </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+  <div class="col-md-8">
+    <div class="panel panel-primary">
+      <div class="panel-heading">Transactions</div>
+      <table class="table table-hover table-condensed ">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name </th>
+            <th>Type</th>
+            <th>BTC </th>
+            <th>USD </th>
+            <th>Balance BTC</th>
+            <th>Exchange</th>
+            <th>Created At </th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @transactions.each do |transaction| %>
+            <tr>
+              <td><%= link_to transaction.id, transaction %> </td>
+              <td><%= User.where(:username => transaction.username).first.firstname %>&nbsp;<%= User.where(:username => transaction.username).first.lastname %> </td>
+              <td><%= transaction.order_type %> </td>
+              <td><%= transaction.btc %> </td>
+              <td><%= transaction.usd %> </td>
+              <td><%= transaction.balance %> </td>
+              <td><%= transaction.exchange.name %> </td>
+              <td><%= transaction.created_at %> </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
 <div class="col-md-2"></div>

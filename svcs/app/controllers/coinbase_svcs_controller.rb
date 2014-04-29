@@ -56,7 +56,8 @@ class CoinbaseSvcsController < ApplicationController
 }"
 
       balB = Balances.where(:name => "Coinbase").first
-      balB.balance = balB.balance.to_f + params[:qty].to_f
+      varBal = balB.balance
+      balB.balance = varBal + params[:qty].to_f
       balB.save
       render :json => response
       end
@@ -101,6 +102,9 @@ class CoinbaseSvcsController < ApplicationController
 }"
 
       balB = Balances.where(:name => "Coinbase").first
+      print balB.balance
+      print "\n"
+      print params[:qty]
       balB.balance = balB.balance.to_f - params[:qty].to_f
       balB.save
       render :json => response

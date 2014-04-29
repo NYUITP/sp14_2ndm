@@ -59,10 +59,10 @@
         txtPrice.style.visibility = "hidden";
         var selection = getUrlVars();
         if(typeof selection["exch"] != 'undefined'){
-          if(selection["exch"] == "bitstamp")
-            $("#selExchange").val("Bitstamp");
-          else if(selection["exch"] == "coinbase")
-            $("#selExchange").val("Coinbase");
+          if(selection["exch"] == "<%= Exchange.where(:name => "Bitstamp").first.id %>")
+            $("#selExchange").val("<%= Exchange.where(:name => "Bitstamp").first.id %>");
+          else if(selection["exch"] == "<%= Exchange.where(:name => "Coinbase").first.id %>")
+            $("#selExchange").val("<%= Exchange.where(:name => "Coinbase").first.id %>");
         }
         fillTypePrice();
       }

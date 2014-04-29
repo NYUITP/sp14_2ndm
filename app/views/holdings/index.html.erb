@@ -65,7 +65,7 @@ function round(num)
                               <td id="bsBal"></td>
                               <td id="bsBalUSD"></td>
                               <td>
-                                <a href="http://localhost:3000/transactions/new?exch=bitstamp" class="btn btn-default">
+                                <a href="http://localhost:3000/transactions/new?exch=<%= Exchange.where(:name => "Bitstamp").first.id %>" class="btn btn-default">
                                 Transact
                                 </a>
                               </td>
@@ -75,7 +75,7 @@ function round(num)
                               <td id="cbBal"></td>
                               <td id="cbBalUSD"></td>
                               <td>
-                                <a href="http://localhost:3000/transactions/new?exch=coinbase" class="btn btn-default">
+                                <a href="http://localhost:3000/transactions/new?exch=<%= Exchange.where(:name => "Coinbase").first.id %>" class="btn btn-default">
                                 Transact
                                 </a>
                               </td>

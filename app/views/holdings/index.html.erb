@@ -55,6 +55,7 @@ function round(num)
                             <th>Exchange</th>
                             <th>BTC</th>
                             <th>USD</th>
+                            <th></th>
                           </tr>
                         </thead>
 
@@ -63,16 +64,27 @@ function round(num)
                               <td>Bitstamp</td>
                               <td id="bsBal"></td>
                               <td id="bsBalUSD"></td>
+                              <td>
+                                <a href="http://localhost:3000/transactions/new?exch=bitstamp" class="btn btn-default">
+                                Transact
+                                </a>
+                              </td>
                             </tr>
                             <tr>
                               <td>Coinbase</td>
                               <td id="cbBal"></td>
                               <td id="cbBalUSD"></td>
+                              <td>
+                                <a href="http://localhost:3000/transactions/new?exch=coinbase" class="btn btn-default">
+                                Transact
+                                </a>
+                              </td>
                             </tr>
                             <tr class="info">
                               <td>Total</td>
                               <td id="totBal"></td>
                               <td id="totBalUSD"></td>
+                              <td></td>
                             </tr>
                         </tbody>
                     </table>

@@ -24,7 +24,7 @@
             <div class="col-xs-1">
             </div>
             <div class="col-xs-5">
-              <%= f.collection_select(:exchangeid, Exchange.all, :id, :name, {:prompt => "Exchange"}, {:class => "form-control", :id => "selExchange", :onchange => "fillTypePrice();"}) %>
+              <%= f.collection_select(:exchangeid, Exchange.all, :name, :name, {:prompt => "Exchange"}, {:class => "form-control", :id => "selExchange", :onchange => "fillTypePrice();"}) %>
             </div>
             <div class="col-xs-5">
               <%= f.select(:order_type, [['Order Type',nil],['Limit Buy','Limit Buy'],['Limit Sell','Limit Sell'],['Market Buy','Market Buy'],['Market Sell','Market Sell']], {}, {:class => "form-control", :id => "selType"})%>

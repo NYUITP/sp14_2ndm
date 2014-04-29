@@ -13,6 +13,39 @@
       navtrans.className = "active"
       navtran.className = ""
       navhold.className = ""
+      window.onload = function () { 
+        selExchange = document.getElementById("selExchange");
+        selType = document.getElementById("selType");
+        txtQuantity = document.getElementById("txtQuantity");
+        txtPrice = document.getElementById("txtPrice");
+
+        txtPrice.style.visibility = "hidden";
+      }
+      function fillTypePrice(){
+        selExchange = document.getElementById("selExchange");
+        selType = document.getElementById("selType");
+        txtQuantity = document.getElementById("txtQuantity");
+        txtPrice = document.getElementById("txtPrice");
+        var exchange = $("#selExchange :selected").text()
+        if(exchange == "Bitstamp"){
+          txtPrice.style.visibility = "visible";
+          $("#selType")
+          .find('option')
+          .remove()
+          .end()
+          .append($('<option selected="selected"></option>').val("Limit Buy").html("Limit Buy"))
+          .append($('<option></option>').val("Limit Sell").html("Limit Sell"));
+        }
+        else if(exchange = "Coinbase"){
+          txtPrice.style.visibility = "hidden";
+          $("#selType")
+          .find('option')
+          .remove()
+          .end()
+          .append($('<option selected="selected"></option>').val("Market Buy").html("Market Buy"))
+          .append($('<option></option>').val("Market Sell").html("Market Sell"));
+        }
+      }
     </script>
 
 			<%= render 'form' %>

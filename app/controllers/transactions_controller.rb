@@ -86,6 +86,7 @@ class TransactionsController < InheritedResources::Base
     end
     def create
 
+        @transaction = Transaction.new
         @coinbase = Coinbase::Client.new('9MB2hsDaSXvbevZ4', 'Yakw1TObmQrL2k4OMGcCVZqpdNLsPO2S')
         amount = params[:transaction][:btc]
         price = params[:transaction][:usd]
@@ -101,18 +102,22 @@ class TransactionsController < InheritedResources::Base
         #print params[:transaction][:exchange]
         type = params[:transaction][:order_type]
         if(params[:transaction][:exchangeid].to_i == 2)
-          if(type == "Buy")
-            response = post('/buys', :qty => amount).to_hash
-          elsif(type == "Sell")
-            response = post('/sells', :qty => amount).to_hash
+          if(type == "Market Buy")
+            #response = post('/buys', :qty => amount).to_hash
+            response = RestClient.get 'http://localhost:4000/coinbase_svcs/buy?key=oo&signature=ooo&qty='+amount
+            data = JSON.load response
+          elsif(type == "Market Sell")
+            #response = post('/sells', :qty => amount).to_hash
+            response = RestClient.get 'http://localhost:4000/coinbase_svcs/sell?key=oo&signature=ooo&qty='+amount
+            data = JSON.load response
           else
           end
         elsif(params[:transaction][:exchangeid].to_i == 1)
-          if(type == "Buy")
+          if(type == "Limit Buy")
             response = RestClient.get 'http://localhost:4000/bitstamp_svcs/buy?key=oo&signature=ooo&nonce=ijijiji&amount='+amount+'&price='+price
             data = JSON.load response
             #print data
-          elsif(type == "Sell")
+          elsif(type == "Limit Sell")
             response = RestClient.get 'http://localhost:4000/bitstamp_svcs/sell?key=oo&signature=ooo&nonce=ijijiji&amount='+amount+'&price='+price
             data = JSON.load response
           else
@@ -141,31 +146,34 @@ class TransactionsController < InheritedResources::Base
         #puts r.error
         print response
         if(params[:transaction][:exchangeid].to_i == 2)
-          if(type == "Buy")
-            params[:transaction][:btc] = response["transfer"]["btc"]["amount"]
-            params[:transaction][:usd] = response["transfer"]["total"]["amount"]
-          elsif(type == "Sell")
-            params[:transaction][:btc] = response["transfer"]["btc"]["amount"].to_f*-1
-            params[:transaction][:usd] = response["transfer"]["total"]["amount"].to_f*-1
-          else
-          end
+            params[:transaction][:btc] = data["transfer"]["btc"]["amount"].to_f
+            params[:transaction][:usd] = data["transfer"]["total"]["amount"].to_f
+
         elsif(params[:transaction][:exchangeid].to_i == 1)
-          if(type == "Buy")
             print data["amount"]
             print data["price"]
             print "ABCDEFG"
             #params[:transaction][:btc] = response["amount"]
             params[:transaction][:usd] = data["price"].to_f
-          elsif(type == "Sell")
-            params[:transaction][:btc] = params[:transaction][:btc].to_f*-1
-            params[:transaction][:usd] = data["price"].to_f*-1
-          else
-          end
         else
         end
         
         
-        
-        super
+        @transaction.btc = params[:transaction][:btc]
+        @transaction.usd  = params[:transaction][:usd]
+        @transaction.exchange = params[:transaction][:exchange]
+        @transaction.exchangeid = params[:transaction][:exchangeid].to_i
+        @transaction.username = params[:transaction][:username]
+        @transaction.order_type = params[:transaction][:order_type]
+        respond_to do |format|     
+          if @transaction.save
+          #redirect_to_root_path
+          format.html { redirect_to(action:'index', notice: 'Transaction Successfull.') }
+          format.json { render json: @transaction, status: :created, location: @transaction }
+          else
+            format.html { render action: 'new' }
+            format.json { render json: @transaction.errors, status: :unprocessable_entity }
+          end
+        end
     end
 end

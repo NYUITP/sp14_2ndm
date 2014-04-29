@@ -16,12 +16,12 @@ navdash = document.getElementById("navdash");
         <thead>
           <tr>
             <th>ID</th>
-            <th>Name </th>
+            <th>Exchange </th>
             <th>Type</th>
             <th>BTC </th>
             <th>USD </th>
             <th>Balance BTC</th>
-            <th>Exchange</th>
+            <th>Name</th>
             <th>Created At </th>
           </tr>
         </thead>
@@ -29,12 +29,13 @@ navdash = document.getElementById("navdash");
           <% @transactions.each do |transaction| %>
             <tr>
               <td><%= link_to transaction.id, transaction %> </td>
-              <td><%= User.where(:username => transaction.username).first.firstname %>&nbsp;<%= User.where(:username => transaction.username).first.lastname %> </td>
+              <td><%= transaction.exchange.name %> </td>
               <td><%= transaction.order_type %> </td>
               <td><%= transaction.btc %> </td>
               <td><%= transaction.usd %> </td>
               <td><%= transaction.balance %> </td>
-              <td><%= transaction.exchange.name %> </td>
+              
+              <td><%= User.where(:username => transaction.username).first.firstname %>&nbsp;<%= User.where(:username => transaction.username).first.lastname %> </td>
               <td><%= transaction.created_at %> </td>
             </tr>
           <% end %>

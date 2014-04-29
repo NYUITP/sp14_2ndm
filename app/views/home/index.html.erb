@@ -38,14 +38,20 @@
         horizontalAlign: "center",
                                 fontSize: 14,
         fontWeight: "bold",
-        fontFamily: "calibri",
+        fontFamily: "helvetica",
         fontColor: "dimGrey"
       },
       axisX: {
-        title: "chart updates every 60 secs"
+        title: "chart updates every 60 secs",
+        labelFontWeight: "bold",
+        labelFontFamily: "helvetica",
+        labelFontColor: "dimGrey"
       },
       axisY:{
         prefix: '$',
+        labelFontWeight: "bold",
+        labelFontFamily: "helvetica",
+        labelFontColor: "dimGrey",
         includeZero: false
       },
       data: [{
@@ -276,14 +282,13 @@ y: yValue2
                 </table>
             </div>
           </div>
-  <div class="panel panel-primary">
-            <div class="panel-heading"><h3 class="panel-title"><%= link_to 'Alerts', '/alerts' %></h3>
-	    </div>
-            <div class="panel-body">
-              <ul class="list-group">
-                  <li class="list-group-item">
-			
-	<table class="table">
+<div class="panel panel-primary">
+            <div class="panel-heading"><h3 class="panel-title"><%= link_to 'Alerts', '/alerts' %></h3></div>
+      <div class="panel-body">
+              <!--ul class="list-group">
+                  <li class="list-group-item"-->
+
+  <table class="table">
   <thead>
     <tr>
       <th>Price Difference</th>
@@ -296,23 +301,35 @@ y: yValue2
     <% Alert.where(:user => current_user).each do |alert| %>
       <tr>
         <td>$<%= alert.price_difference %></td>
-	<td><%= alert.exchange1%></td>
-	<td><%= alert.exchange2%></td>
+  <td><%= alert.exchange1%></td>
+  <td><%= alert.exchange2%></td>
       </tr>
     <% end %>
-                    <span >
-                          <span class="input-group-btn">
+      </tbody>
+      </table>
+                    <!--span >
+                      <div class="input-group">
+                        <span class="input-group-addon">$</span>
+                        <input type="text" class="form-control">
+                          <!--span class="input-group-btn">
                             <button class="btn btn-default" type="button"><%= link_to 'New Alert', '/alerts/new' %></button>
                           </span>
                         </input>
-                    </span>
-                  </li>
-              </ul>
+                      </div>
+                    </span-->
+                  <!--/li>
+              </ul-->
             </div>
+    <div class="panel-footer">
+                  <h3 class="panel-title">
+                    <button type="button" class="btn btn-default">
+                      <%= link_to 'New Alert', '/alerts/new' %>
+                    </button>
+                  </h3>
+                </div>
 
 	    </div>
-          </div>            
-          </div>
+
         </div>
 
       </div>

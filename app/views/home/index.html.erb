@@ -92,18 +92,24 @@
     var yValue1 = parseFloat(jsonResponse[0].coinbase);
     var yValue2 = parseFloat(jsonResponse[0].bitstamp);
     //var time = parseFloat(jsonResponse[1].updated_at);
-    //alert(time);
+    
     //alert(parseFloat(jsonResponse[0].created_at));
-    var s = jsonResponse[jsonResponse.length-1].created_at;
+    var s = jsonResponse[0].created_at;
     var bits = s.split(/\D/);
-    var date = new Date(bits[0], --bits[1], bits[2], bits[3], bits[4]);
-    alert(date);
+    var time = new Date(bits[0], bits[1], bits[2], bits[3], bits[4]);
+  //  alert(time.getTimezoneOffset());
+//alert(date.getHours());
+//alert(date.getMinutes());
+//alert(date.getSeconds());
+//alert(date.getMilliseconds());
 
-    var time = new Date;
-    time.setHours(9);
-    time.setMinutes(30);
-    time.setSeconds(00);
-    time.setMilliseconds(00);
+     
+   // var time = date;
+    //time.setHours(9);
+    //alert(time.getHours());
+    //time.setMinutes(30);
+    //time.setSeconds(00);
+    //time.setMilliseconds(00);
     // starting at 9.30 am
 
     var updateChart = function (count) {
@@ -248,21 +254,34 @@ function round(num)
             <div class="panel-body">
               <ul class="list-group">
                   <li class="list-group-item">
+			
+	<table class="table">
+  <thead>
+    <tr>
+      <th>Price Difference</th>
+      <th>Exchange 1</th>
+      <th>Exchange 2</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% Alert.where(:user => current_user).each do |alert| %>
+      <tr>
+        <td>$<%= alert.price_difference %></td>
+	<td><%= alert.exchange1%></td>
+	<td><%= alert.exchange2%></td>
+      </tr>
+    <% end %>
                     <span >
-                      <div class="input-group">
-                        <span class="input-group-addon">$</span>
-                        <input type="text" class="form-control">
-                          <!--span class="input-group-btn">
+                          <span class="input-group-btn">
                             <button class="btn btn-default" type="button"><%= link_to 'New Alert', '/alerts/new' %></button>
-                          </span-->
+                          </span>
                         </input>
-                      </div>
                     </span>
                   </li>
               </ul>
             </div>
-		<div class="panel-default"><h3 class="panel-title"><%= link_to 'New Alert', '/alerts/new' %></h3>
-		</div>
+
 	    </div>
           </div>            
           </div>

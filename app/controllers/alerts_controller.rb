@@ -2,7 +2,7 @@ class AlertsController < InheritedResources::Base
   # POST /alerts
   # POST /alerts.json
   def create
-     @exchanges = Exchanges.all	
+     #@exchanges = Exchanges.all	
      @alerts = Alert.all
      @alert = Alert.new(params[:alert])
     # @alert.username = current_user.username

@@ -17,19 +17,34 @@
   <thead>
     <tr>
       <th>Price Difference</th>
+      <th>Exchange 1</th>
+      <th>Exchange 2</th>
+      <th>Frequency</th>
       <!--th>User</th-->
-	<th><th>
-    </tr>
+	
+ </tr>
   </thead>
 
   <tbody>
       <tr>
         <td>$<%= f.text_field :price_difference %></td>
+	<td><%= f.text_field :exchange1%></td>
+	<td><%= f.text_field :exchange2%></td>
+	<td><%= f.text_field :frequency%></td>
         <!--td><%= f.text_field :user_id, :value=> current_user.username %></td-->
         <td><%= f.submit %></td>
 
       </tr>
-<tr>
+      <tr> </tr>   
+      <!--tr><select class=" "><option>Bitstamp</option></select> </tr>
+      <tr><div class="btn-group"><button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
+  <!--span class="caret"></span--d>
+  </button>
+<ul class="dropdown-menu" role="menu">
+    <li><a href="#">Bitcoin</a></li>
+    <li><a href="#">Coinbase</a></li>
+    <li><a href="#">ItBit</a></li>
+</ul></div></tr-->
 
   </tbody>
 </table>	

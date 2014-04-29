@@ -13,16 +13,20 @@ namespace :my_namespace do
 	data = JSON.load response
 	diff = (@coinbase.buy_price(1).to_f - data["last"].to_f).abs
 	#diff = (@coinbase.buy_price(1).to_f - 10.0).abs
+        
   alerts = Alert.all
-    alerts.each do |item|
-      @alert = item
+     alerts.each do |item|
+       @alert = item
+	timeDifference = ((Time.now.utc - @alert.updated_at) / 1.minute).round
+        if(timeDifference % @alert.frequency == 0) then
+
 	if @alert.price_difference <= diff then
 	#send email alert
 	AlertMailer.send_alert(@alert).deliver  
         end
+      end
     end
-end
-
+  end
 end
 
 

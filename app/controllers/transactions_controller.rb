@@ -107,26 +107,30 @@ class TransactionsController < InheritedResources::Base
         @coinbase = Coinbase::Client.new('9MB2hsDaSXvbevZ4', 'Yakw1TObmQrL2k4OMGcCVZqpdNLsPO2S')
         amount = params[:transaction][:btc]
         price = params[:transaction][:usd]
-        #print amount
-        #options={}
-        #options[:base_uri] ||= 'https://coinbase.com/api/v1'
-      	#@base_uri = options[:base_uri]
-      	#options[:format]   ||= :json
- 		#options.each do |k,v|
-        #	self.class.send k, v
-      	#end
+
         params[:transaction][:exchange] = Exchange.where(:id => params[:transaction][:exchangeid].to_i).first
-        #print params[:transaction][:exchange]
+
         type = params[:transaction][:order_type]
+        response5  = balance()
+        data5 = JSON.load response5
+        errorVal = 0
         if(params[:transaction][:exchangeid].to_i == 2)
           if(type == "Market Buy")
-            #response = post('/buys', :qty => amount).to_hash
             response = RestClient.get 'http://localhost:4000/coinbase_svcs/buy?key=oo&signature=ooo&qty='+amount
             data = JSON.load response
           elsif(type == "Market Sell")
-            #response = post('/sells', :qty => amount).to_hash
-            response = RestClient.get 'http://localhost:4000/coinbase_svcs/sell?key=oo&signature=ooo&qty='+amount
-            data = JSON.load response
+            if(amount.to_f > data5["coinbase"].to_f)
+                errorVal = 1
+                respond_to do |format|
+                  format.html { redirect_to({action: 'new'}, alert: 'Quantity higher than balance!') }
+                  format.json { render json: 'Quantity higher than Balance!', status: :unprocessable_entity }
+                end
+            else
+                errorVal = 0
+                #response = post('/sells', :qty => amount).to_hash
+                response = RestClient.get 'http://localhost:4000/coinbase_svcs/sell?key=oo&signature=ooo&qty='+amount
+                data = JSON.load response
+            end
           else
           end
         elsif(params[:transaction][:exchangeid].to_i == 1)
@@ -135,8 +139,17 @@ class TransactionsController < InheritedResources::Base
             data = JSON.load response
             #print data
           elsif(type == "Limit Sell")
-            response = RestClient.get 'http://localhost:4000/bitstamp_svcs/sell?key=oo&signature=ooo&nonce=ijijiji&amount='+amount+'&price='+price
-            data = JSON.load response
+            if(amount.to_f > data5["bitstamp"].to_f)
+                errorVal = 1
+                respond_to do |format|
+                  format.html { redirect_to({action: 'new'}, alert: 'Quantity higher than balance!') }
+                  format.json { render json: "Quantity higher than Balance!", status: :unprocessable_entity }
+                end
+            else
+                errorVal = 0
+                response = RestClient.get 'http://localhost:4000/bitstamp_svcs/sell?key=oo&signature=ooo&nonce=ijijiji&amount='+amount+'&price='+price
+                data = JSON.load response
+            end
           else
           end
         else
@@ -162,43 +175,45 @@ class TransactionsController < InheritedResources::Base
         #r = @coinbase.buy!(amount)
         #puts r.error
         #print response
-        if(params[:transaction][:exchangeid].to_i == 2)
-            params[:transaction][:btc] = data["transfer"]["btc"]["amount"].to_f
-            params[:transaction][:usd] = data["transfer"]["total"]["amount"].to_f
+        if(errorVal == 0)
+          if(params[:transaction][:exchangeid].to_i == 2)
+              params[:transaction][:btc] = data["transfer"]["btc"]["amount"].to_f
+              params[:transaction][:usd] = data["transfer"]["total"]["amount"].to_f
 
-        elsif(params[:transaction][:exchangeid].to_i == 1)
-            #params[:transaction][:btc] = response["amount"]
-            params[:transaction][:usd] = data["price"].to_f
-        else
-        end
-
-        response = balance()
-        print "\n"
-        print response
-        data = JSON.load response
-        if(params[:transaction][:exchangeid].to_i == 2)
-            params[:transaction][:balance] = data["coinbase"].to_f
-
-        elsif(params[:transaction][:exchangeid].to_i == 1)
-            params[:transaction][:balance] = data["bitstamp"].to_f
-        else
-        end
-        print 'BALANCE COLLECTED'
-        @transaction.btc = params[:transaction][:btc]
-        @transaction.usd  = params[:transaction][:usd]
-        @transaction.exchange = params[:transaction][:exchange]
-        @transaction.exchangeid = params[:transaction][:exchangeid].to_i
-        @transaction.username = params[:transaction][:username]
-        @transaction.order_type = params[:transaction][:order_type]
-        @transaction.balance = params[:transaction][:balance]
-        respond_to do |format|     
-          if @transaction.save
-          #redirect_to_root_path
-          format.html { redirect_to(action:'index', notice: 'Transaction Successfull.') }
-          format.json { render json: @transaction, status: :created, location: @transaction }
+          elsif(params[:transaction][:exchangeid].to_i == 1)
+              #params[:transaction][:btc] = response["amount"]
+              params[:transaction][:usd] = data["price"].to_f
           else
-            format.html { render action: 'new' }
-            format.json { render json: @transaction.errors, status: :unprocessable_entity }
+          end
+
+          response = balance()
+          print "\n"
+          print response
+          data = JSON.load response
+          if(params[:transaction][:exchangeid].to_i == 2)
+              params[:transaction][:balance] = data["coinbase"].to_f
+
+          elsif(params[:transaction][:exchangeid].to_i == 1)
+              params[:transaction][:balance] = data["bitstamp"].to_f
+          else
+          end
+          @transaction.btc = params[:transaction][:btc]
+          @transaction.usd  = params[:transaction][:usd]
+          @transaction.exchange = params[:transaction][:exchange]
+          @transaction.exchangeid = params[:transaction][:exchangeid].to_i
+          @transaction.username = params[:transaction][:username]
+          @transaction.order_type = params[:transaction][:order_type]
+          @transaction.balance = params[:transaction][:balance]
+          respond_to do |format|     
+          
+            if @transaction.save
+            #redirect_to_root_path
+            format.html { redirect_to(action:'index', notice: 'Transaction Successfull.') }
+            format.json { render json: @transaction, status: :created, location: @transaction }
+            else
+              format.html { render action: 'new' }
+              format.json { render json: @transaction.errors, status: :unprocessable_entity }
+            end
           end
         end
     end

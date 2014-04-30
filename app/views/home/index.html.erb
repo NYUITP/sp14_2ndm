@@ -223,9 +223,12 @@
             </div>
             <div class="panel-footer">
               <h3 class="panel-title">
-                <button type="button" class="btn btn-default">
-                  <%= link_to 'New Alert', '/alerts/new' %>
-                </button>
+                <div class="row">
+                <div class = "col-xs-8"></div>
+                <div class = "col-xs-3">
+                  <%= link_to 'New Alert', '/alerts/new', { :class=>"btn btn-success", :style=>"color: white;" } %></div>
+                  <div class = "col-xs-1"></div>
+                </div>
               </h3>
             </div>
           </div>

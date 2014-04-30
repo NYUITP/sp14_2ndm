@@ -37,7 +37,7 @@ navdash = document.getElementById("navdash");
               <td><%= transaction.exchange.name %> </td>
               <td><%= transaction.order_type %> </td>
               <td><%= transaction.btc %> </td>
-              <td><%= transaction.usd %> </td>
+              <td><%= transaction.usd.round(2) %> </td>
               <td><%= transaction.balance %> </td>
               
               <td><%= User.where(:username => transaction.username).first.firstname %>&nbsp;<%= User.where(:username => transaction.username).first.lastname %> </td>

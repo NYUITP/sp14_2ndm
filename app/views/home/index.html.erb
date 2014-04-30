@@ -3,53 +3,38 @@
 <script src="http://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://googledrive.com/host/0B6j6xmB1Ii0mX0dMb3NjWk85bEk/canvasjs.min.js"></script>
 <script type="text/javascript">
-  window.onload = function () {
+  var updateChart = function () {
 
-    var request = new XMLHttpRequest();
-    //request.onload = callback;
-    request.open("get", "http://localhost:3000/home/history", false);
-    request.setRequestHeader("Content-Type", "application/json");
-    request.send(null);
-    //alert(request.responseText);
-    var jsonResponse = 	JSON.parse(request.responseText);
-   
-//for(var i=0;i<jsonResponse.data.length;i++)
-//{
-      //alert(jsonResponse[1].Bitstamp);
-//}
-  //  var res = jsonResponse['response'];
-//alert(res[0]['bitstamp']);
-    // dataPoints
-	
-    var dataPoints1 = [];
-    var dataPoints2 = [];
+      var request = new XMLHttpRequest();
+      request.open("get", "http://localhost:3000/home/history", false);
+      request.setRequestHeader("Content-Type", "application/json");
+      request.send(null);
+      var jsonResponse =  JSON.parse(request.responseText);
 
-    var chart = new CanvasJS.Chart("chartContainer",{
+      var dataPoints1 = [];
+      var dataPoints2 = [];
+      var chart = new CanvasJS.Chart("chartContainer",{
       zoomEnabled: true,
       title: {
-        //text: "Bitcoin Realtime Price Comparison"
       },
       toolTip: {
         shared: true
-
       },
       legend: {
         verticalAlign: "top",
         horizontalAlign: "center",
-                                fontSize: 14,
+        fontSize: 14,
         fontWeight: "bold",
         fontFamily: "helvetica",
         fontColor: "dimGrey"
       },
       axisX: {
         title: "chart updates every 60 secs",
-        labelFontWeight: "bold",
         labelFontFamily: "helvetica",
         labelFontColor: "dimGrey"
       },
       axisY:{
         prefix: '$',
-        labelFontWeight: "bold",
         labelFontFamily: "helvetica",
         labelFontColor: "dimGrey",
         includeZero: false
@@ -69,86 +54,25 @@
         showInLegend: true,
         name: "Bitstamp" ,
         dataPoints: dataPoints2
-      }],
-          legend:{
-            cursor:"pointer",
-            itemclick : function(e) {
-              if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
-                e.dataSeries.visible = false;
-              }
-              else {
-                e.dataSeries.visible = true;
-              }
-              chart.render();
-            }
-          }
+      }]
     });
-
-    navdash = document.getElementById("navdash");
-      navtrans = document.getElementById("navtrans");
-      navtran = document.getElementById("navtran");
-      navhold = document.getElementById("navhold");
-      navdash.className = "active"
-      navtrans.className = ""
-      navtran.className = ""
-      navhold.className = ""
-
-
-    var updateInterval = 60000;
-    // initial value
-    var yValue1 = parseFloat(jsonResponse[0].coinbase);
-    var yValue2 = parseFloat(jsonResponse[0].bitstamp);
-    //var time = parseFloat(jsonResponse[1].updated_at);
-    
-    //alert(parseFloat(jsonResponse[0].created_at));
-    var s = jsonResponse[0].created_at;
-    var bits = s.split(/\D/);
-    var time = new Date(bits[0], bits[1], bits[2], bits[3], bits[4]);
-  //  alert(time.getTimezoneOffset());
-//alert(date.getHours());
-//alert(date.getMinutes());
-//alert(date.getSeconds());
-//alert(date.getMilliseconds());
-
-     
-   // var time = date;
-    //time.setHours(9);
-    //alert(time.getHours());
-    //time.setMinutes(30);
-    //time.setSeconds(00);
-    //time.setMilliseconds(00);
-    // starting at 9.30 am
-
-    var updateChart = function (count) {
-    count = count || 1;
-      //alert(count);
-      // count is number of times loop runs to generate random dataPoints.
 
       for (var i = 0; i < jsonResponse.length; i++) {
 
-        // add interval duration to time
-        time.setTime(time.getTime()+ updateInterval);
-	
-	
-        // generating random values
-        //var deltaY1 = .5 + Math.random() *(-.5-.5);
-        //var deltaY2 = .5 + Math.random() *(-.5-.5);
-	
-        // adding random value and rounding it to two digits.
-        //yValue1 = Math.round((yValue1 + deltaY1)*100)/100;
-        //yValue2 = Math.round((yValue2 + deltaY2)*100)/100;
-	yValue1 = parseFloat(jsonResponse[i].coinbase);
-	yValue2 = parseFloat(jsonResponse[i].bitstamp);
+
+  yValue1 = parseFloat(jsonResponse[i].coinbase);
+  yValue2 = parseFloat(jsonResponse[i].bitstamp);
+  var s = jsonResponse[i].created_at;
+    var bits = s.split(/\D/);
+    var time = new Date(bits[0], bits[1], bits[2], bits[3], bits[4]);
          // pushing the new values
         dataPoints1.push({
-          x: time.getTime(),
-//x: time,          
-y: yValue1
+          x: time.getTime(),        
+          y: yValue1
         });
         dataPoints2.push({
           x: time.getTime(),
-//x: time,
-y: yValue2
+          y: yValue2
         });
 
 
@@ -157,17 +81,25 @@ y: yValue2
       // updating legend text with  updated with y Value
       chart.options.data[0].legendText = " Coinbase  $" + yValue1;
       chart.options.data[1].legendText = " Bitstamp  $" + yValue2;
-	
+  
       chart.render();
 
     };
 
-    // generates first set of dataPoints
-    updateChart(600000);
-
-    // update chart after specified interval
+  window.onload = function () {
+   
+    navdash = document.getElementById("navdash");
+      navtrans = document.getElementById("navtrans");
+      navtran = document.getElementById("navtran");
+      navhold = document.getElementById("navhold");
+      navdash.className = "active"
+      navtrans.className = ""
+      navtran.className = ""
+      navhold.className = ""
+    var updateInterval = 60000;
+    updateChart();
     setInterval(function(){updateChart()}, updateInterval);
-  }
+  };
 </script>
 <script>
 
@@ -210,48 +142,31 @@ y: yValue2
 
       <div class="row">
         <div class="col-md-8">
-          <div class="panel panel-primary"><div class="panel-heading"><h5 class="panel-title">Bitcoin Realtime Price Comparison</h5>
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h5 class="panel-title">Bitcoin Realtime Price Comparison</h5>
+            </div>
             <div class="panel-body">
               <ul class="nav nav-pills nav-stacked">
                 <li> 
-                  <div id="chartContainer" style="height: 330px; width: 100%;"></div>
+                  <div id="chartContainer" style="height: 500px;width: 100%;"></div>
                 </li>
                 <li>
-                 
                 </li>
-		<li>
+		            <li>
                   <i>
-                Select an area of the graph to Zoom and Pan
+                    Select an area of the graph to Zoom and Pan
                   </i>
                 </li>
-              </ul></div>
-            </div>
-          </div>
-	  <!--div class="panel panel-primary">
-            <div class="panel-heading"><h3 class="panel-title"><%= link_to 'Alerts', '/alerts' %></h3>
-	    </div>
-            <div class="panel-body">
-              <ul class="list-group">
-                  <li class="list-group-item">
-                    Alert Range (Set Price Difference)
-                    <span >
-                      <div class="input-group">
-                        <span class="input-group-addon">$</span>
-                        <input type="text" class="form-control">
-                          <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">Go!</button>
-                          </span>
-                        </input>
-                      </div>
-                    </span>
-                  </li>
               </ul>
             </div>
-          </div-->
+          </div>
         </div>
         <div class="col-md-4">
           <div class="panel panel-primary">
-            <div class="panel-heading"><h3 class="panel-title"><%= link_to 'Holdings', '/holdings' %></h3></div>
+            <div class="panel-heading">
+              <h3 class="panel-title"><%= link_to 'Holdings', '/holdings' %></h3>
+            </div>
             <div class="panel-body">
               <table class="table table-striped">
                   <thead>
@@ -282,56 +197,39 @@ y: yValue2
                 </table>
             </div>
           </div>
-<div class="panel panel-primary">
-            <div class="panel-heading"><h3 class="panel-title"><%= link_to 'Alerts', '/alerts' %></h3></div>
-      <div class="panel-body">
-              <!--ul class="list-group">
-                  <li class="list-group-item"-->
-
-  <table class="table">
-  <thead>
-    <tr>
-      <th>Price Difference</th>
-      <th>Exchange 1</th>
-      <th>Exchange 2</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% Alert.where(:user => current_user).each do |alert| %>
-      <tr>
-        <td>$<%= alert.price_difference %></td>
-  <td><%= alert.exchange1%></td>
-  <td><%= alert.exchange2%></td>
-      </tr>
-    <% end %>
-      </tbody>
-      </table>
-                    <!--span >
-                      <div class="input-group">
-                        <span class="input-group-addon">$</span>
-                        <input type="text" class="form-control">
-                          <!--span class="input-group-btn">
-                            <button class="btn btn-default" type="button"><%= link_to 'New Alert', '/alerts/new' %></button>
-                          </span>
-                        </input>
-                      </div>
-                    </span-->
-                  <!--/li>
-              </ul-->
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h3 class="panel-title"><%= link_to 'Alerts', '/alerts' %></h3>
             </div>
-    <div class="panel-footer">
-                  <h3 class="panel-title">
-                    <button type="button" class="btn btn-default">
-                      <%= link_to 'New Alert', '/alerts/new' %>
-                    </button>
-                  </h3>
-                </div>
-
-	    </div>
-
+            <div class="panel-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Price Difference</th>
+                    <th>Exchange 1</th>
+                    <th>Exchange 2</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% Alert.where(:user => current_user).each do |alert| %>
+                    <tr>
+                      <td>$<%= alert.price_difference %></td>
+                      <td><%= alert.exchange1%></td>
+                      <td><%= alert.exchange2%></td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+            <div class="panel-footer">
+              <h3 class="panel-title">
+                <button type="button" class="btn btn-default">
+                  <%= link_to 'New Alert', '/alerts/new' %>
+                </button>
+              </h3>
+            </div>
+          </div>
         </div>
-
       </div>
 <%= yield %>
 <% end %>

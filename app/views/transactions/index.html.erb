@@ -3,10 +3,15 @@ navdash = document.getElementById("navdash");
       navtrans = document.getElementById("navtrans");
       navtran = document.getElementById("navtran");
       navhold = document.getElementById("navhold");
-      navdash.className = ""
-      navtrans.className = ""
-      navtran.className = "active"
-      navhold.className = ""
+      navdash.className = "";
+      navtrans.className = "";
+      navtran.className = "active";
+      navhold.className = "";
+
+      //alert(document.referrer);
+      window.onload = function() {
+        $("table > tbody > tr:first").addClass("success");
+      }
 </script>
 <div class="col-md-2"></div>
   <div class="col-md-8">
@@ -26,7 +31,7 @@ navdash = document.getElementById("navdash");
           </tr>
         </thead>
         <tbody>
-          <% @transactions.each do |transaction| %>
+          <% @transactions.order('created_at DESC').each do |transaction| %>
             <tr>
               <td><%= link_to transaction.id, transaction %> </td>
               <td><%= transaction.exchange.name %> </td>

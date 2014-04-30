@@ -29,14 +29,14 @@
 
   <tbody>
       <tr>
-        <td>$<%= f.text_field :price_difference %></td>
-	<td><%= f.select :exchange1, options_for_select(Exchange.all.map{|exchange| ["#{exchange.name}", exchange.name] }) %></td>
-	<td><%= f.select :exchange2, options_for_select(Exchange.all.map{|exchange| ["#{exchange.name}", exchange.name] }) %></td>
+        <td><%= f.text_field :price_difference, class: "form-control", :placeholder => "$" %></td>
+	<td><%= f.select :exchange1, options_for_select(Exchange.all.map{|exchange| ["#{exchange.name}", exchange.name] }),{}, {:class => "form-control"} %></td>
+	<td><%= f.select :exchange2, options_for_select(Exchange.all.map{|exchange| ["#{exchange.name}", exchange.name] }),{}, {:class => "form-control"} %></td>
 	<!--td><%= f.text_field :exchange1%></td-->
 	<!--td><%= f.text_field :exchange2%></td-->
-	<td><%= f.text_field :frequency%></td>
+	<td><%= f.text_field :frequency, class: "form-control"%></td>
         <!--td><%= f.text_field :user_id, :value=> current_user.username %></td-->
-        <td><%= f.submit %></td>
+        <td><%= f.submit 'Create Alert', :class => 'btn btn-success', :style=>"color: white;width:100%" %></td>
 
       </tr>
       <tr> </tr>   

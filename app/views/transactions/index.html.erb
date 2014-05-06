@@ -41,7 +41,7 @@ navdash = document.getElementById("navdash");
               <td><%= transaction.balance %> </td>
               
               <td><%= User.where(:username => transaction.username).first.firstname %>&nbsp;<%= User.where(:username => transaction.username).first.lastname %> </td>
-              <td><%= transaction.created_at %> </td>
+              <td><%= transaction.created_at.localtime %> </td>
             </tr>
           <% end %>
         </tbody>

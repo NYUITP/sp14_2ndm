@@ -64,7 +64,8 @@
   yValue2 = parseFloat(jsonResponse[i].bitstamp);
   var s = jsonResponse[i].created_at;
     var bits = s.split(/\D/);
-    var time = new Date(bits[0], bits[1], bits[2], bits[3], bits[4]);
+    var time = new Date(Date.UTC(bits[0], bits[1], bits[2], bits[3], bits[4]));
+
          // pushing the new values
         dataPoints1.push({
           x: time.getTime(),        

@@ -25,7 +25,8 @@ navtrans = document.getElementById("navtrans");
       <th>Exchange 1</th>
       <th>Exchange 2</th>
       <th>Frequency</th>
-      <!--th>User</th-->
+      <th>Automatic</th>
+      <th>Quantity</th>
       <th></th>
       <th></th>
     </tr>
@@ -38,9 +39,10 @@ navtrans = document.getElementById("navtrans");
 	<td><%= alert.exchange1%></td>
 	<td><%= alert.exchange2%></td>
 	<td><%= alert.frequency%></td>
+  <td><%= alert.automatic%></td>
+  <td><%= alert.quantity%></td>
         
-        <!--td><%= alert.user.username %></td-->
-        <!--td><%= link_to 'Show', alert %></td-->
+
         <td><%= link_to 'Edit', edit_alert_path(alert) %></td>
         <td><%= link_to 'Destroy', alert, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

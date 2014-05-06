@@ -4,7 +4,7 @@
 # http://en.wikipedia.org/wiki/Cron
 
 set :environment, "development"
-#set :output, {:error => "/var/log/syslog.log", :standard => "/var/log/syslog.log"}
+set :output, {:error => "/Users/sam/rails_projects/sp14_2ndm/log/syslog.log", :standard => "/Users/sam/rails_projects/sp14_2ndm/log/syslog.log"}
 
 # Example:
 #

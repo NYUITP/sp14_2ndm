@@ -11,8 +11,8 @@
     </div>
   <% end %>
 
-  <div class="col-md-2"></div>
-    <div class="col-md-8">
+  <div class="col-xs-1"></div>
+    <div class="col-xs-10">
       <div class="panel panel-primary">
         <div class="panel-heading">New Alert</div>
 	<table class="table table-hover">
@@ -22,7 +22,8 @@
       <th>Exchange 1</th>
       <th>Exchange 2</th>
       <th>Frequency</th>
-      <!--th>User</th-->
+      <th>Automatic</th>
+      <th>Quantity</th>
 	
  </tr>
   </thead>
@@ -30,25 +31,16 @@
   <tbody>
       <tr>
         <td><%= f.text_field :price_difference, class: "form-control", :placeholder => "$" %></td>
-	<td><%= f.select :exchange1, options_for_select(Exchange.all.map{|exchange| ["#{exchange.name}", exchange.name] }),{}, {:class => "form-control"} %></td>
-	<td><%= f.select :exchange2, options_for_select(Exchange.all.map{|exchange| ["#{exchange.name}", exchange.name] }),{}, {:class => "form-control"} %></td>
-	<!--td><%= f.text_field :exchange1%></td-->
-	<!--td><%= f.text_field :exchange2%></td-->
-	<td><%= f.text_field :frequency, class: "form-control"%></td>
-        <!--td><%= f.text_field :user_id, :value=> current_user.username %></td-->
+	      <td><%= f.select :exchange1, options_for_select(Exchange.all.map{|exchange| ["#{exchange.name}", exchange.name] }),{}, {:class => "form-control"} %></td>
+	      <td><%= f.select :exchange2, options_for_select(Exchange.all.map{|exchange| ["#{exchange.name}", exchange.name] }),{}, {:class => "form-control"} %></td>
+	      <td><%= f.text_field :frequency, class: "form-control"%></td>
+        <td><%= f.check_box :automatic, class: "checkbox" %></td>
+        <td><%= f.text_field :quantity, class: "form-control" %></td>
         <td><%= f.submit 'Create Alert', :class => 'btn btn-success', :style=>"color: white;width:100%" %></td>
 
       </tr>
       <tr> </tr>   
-      <!--tr><select class=" "><option>Bitstamp</option></select> </tr>
-      <tr><div class="btn-group"><button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
-  <!--span class="caret"></span--d>
-  </button>
-<ul class="dropdown-menu" role="menu">
-    <li><a href="#">Bitcoin</a></li>
-    <li><a href="#">Coinbase</a></li>
-    <li><a href="#">ItBit</a></li>
-</ul></div></tr-->
+
 
   </tbody>
 </table>	

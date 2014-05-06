@@ -15,16 +15,29 @@ namespace :my_namespace do
 	#diff = (@coinbase.buy_price(1).to_f - 10.0).abs
         
   alerts = Alert.all
-     alerts.each do |item|
-       @alert = item
-	timeDifference = ((Time.now.utc - @alert.updated_at) / 1.minute).round
+    alerts.each do |item|
+        @alert = item
+		timeDifference = ((Time.now.utc - @alert.updated_at) / 1.minute).round
         if(timeDifference % @alert.frequency == 0) then
 
-	if @alert.price_difference <= diff then
-	#send email alert
-	AlertMailer.send_alert(@alert).deliver  
-        end
-      end
+			if @alert.price_difference <= diff then
+			#send email alert
+			AlertMailer.send_alert(@alert).deliver  
+
+			if @alert.automatic? then
+				btcval = @alert.quantity.to_s
+				usdval = (@alert.quantity*(data["last"].to_f)).to_s
+				username = @alert.user.username
+				params = {'transaction' => {'btc' => btcval, 'usd' => usdval, 'exchangeid'=>'1', 'order_type'=>'Limit Buy', 'username' => username} }
+				print params.to_json
+				RestClient.post "http://localhost:3000/transactions", params.to_json, :content_type => :json, :accept => :json
+				delete_url = "http://localhost:3000/alerts/"+@alert.id.to_s
+				print delete_url
+				RestClient.delete delete_url
+			end
+
+		    end
+      	end
     end
   end
 end

@@ -14,6 +14,7 @@ class HomeController < ApplicationController
 		#@total = 0
 		@coinbase = Coinbase::Client.new('9MB2hsDaSXvbevZ4', 'Yakw1TObmQrL2k4OMGcCVZqpdNLsPO2S')
 		@cb2 = @coinbase.buy_price(1).format
+		@cb3 = @coinbase.sell_price(1).format
 		#@coinbase_bal = @coinbase.balance
 		#Holding.all.where(:user_id => current_user.id).each do |holding|
 			#@total = @total + holding.balance
@@ -22,7 +23,7 @@ class HomeController < ApplicationController
   end 
   def ticker
   	@coinbase = Coinbase::Client.new('9MB2hsDaSXvbevZ4', 'Yakw1TObmQrL2k4OMGcCVZqpdNLsPO2S')
-  	response = "{\"bitstamp\":\""+ Bitstamp::ticker.last.to_s+"\",\"coinbase\":\""+ @coinbase.buy_price(1).format+"\"}"
+  	response = "{\"bitstamp_buy\":\""+ Bitstamp::ticker.ask.to_s+"\",\"coinbase_buy\":\""+ @coinbase.buy_price(1).format+"\",\"bitstamp_sell\":\""+ Bitstamp::ticker.bid.to_s+"\",\"coinbase_sell\":\""+ @coinbase.sell_price(1).format+"\"}"
   	#response = "{\"bitstamp\":\""+ 500.to_s+"\",\"coinbase\":\""+ @coinbase.buy_price(1).format+"\"}"
   	render :json => response
   end  

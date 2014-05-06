@@ -14,43 +14,79 @@
     function round(num) 
   { return +(Math.round(num + "e+2")  + "e-2");
   }
-    var bsInfo;
-    var cbInfo
+    var bsBuyInfo;
+    var cbBuyInfo;
+    var bsSellInfo;
+    var cbSellInfo;
       function updateVals(){
         jQuery.ajax({ 
           type: 'GET',
           url: '/home/ticker' ,
           dataType: 'json', 
           success: function(data) { 
-            bsInfo = data.bitstamp;
-            element = document.getElementById("bsVal");
+            bsBuyInfo = data.bitstamp_buy;
+            element = document.getElementById("bsBuyVal");
             var val = element.textContent;
             val = val.substring(1);
-            var bsVal = parseFloat(val);
-            element.textContent = "$"+bsInfo;
-            var newBsVal = parseFloat(bsInfo);
-            element = document.getElementById("bsLbl");
-            if(newBsVal > bsVal){
+            var bsBuyVal = parseFloat(val);
+            element.textContent = "$"+bsBuyInfo;
+            var newBsBuyVal = parseFloat(bsBuyInfo);
+            element = document.getElementById("bsBuyLbl");
+            if(newBsBuyVal > bsBuyVal){
               element.className = "label label-success"
             }
-            else if(newBsVal==bsVal){
+            else if(newBsBuyVal==bsBuyVal){
               element.className = "label label-primary"
             }
             else
               element.className = "label label-danger"
 
-            cbInfo = data.coinbase;
-            element = document.getElementById("cbVal");
-            val = element.textContent;
-            val  = val.substring(1);
-            var cbVal = parseFloat(val);
-            element.textContent = cbInfo;
-            var newCbVal = parseFloat(cbInfo.substring(1));
-            element = document.getElementById("cbLbl");
-            if(newCbVal > cbVal){
+            bsSellInfo = data.bitstamp_sell;
+            element = document.getElementById("bsSellVal");
+            var val = element.textContent;
+            val = val.substring(1);
+            var bsSellVal = parseFloat(val);
+            element.textContent = "$"+bsSellInfo;
+            var newBsSellVal = parseFloat(bsSellInfo);
+            element = document.getElementById("bsSellLbl");
+            if(newBsSellVal > bsSellVal){
               element.className = "label label-success"
             }
-            else if(newCbVal==cbVal){
+            else if(newBsSellVal==bsSellVal){
+              element.className = "label label-primary"
+            }
+            else
+              element.className = "label label-danger"
+
+            cbBuyInfo = data.coinbase_buy;
+            element = document.getElementById("cbBuyVal");
+            val = element.textContent;
+            val  = val.substring(1);
+            var cbBuyVal = parseFloat(val);
+            element.textContent = cbBuyInfo;
+            var newCbBuyVal = parseFloat(cbBuyInfo.substring(1));
+            element = document.getElementById("cbBuyLbl");
+            if(newCbBuyVal > cbBuyVal){
+              element.className = "label label-success"
+            }
+            else if(newCbBuyVal==cbBuyVal){
+              element.className = "label label-primary"
+            }
+            else
+              element.className = "label label-danger"
+
+            cbSellInfo = data.coinbase_sell;
+            element = document.getElementById("cbSellVal");
+            val = element.textContent;
+            val  = val.substring(1);
+            var cbSellVal = parseFloat(val);
+            element.textContent = cbSellInfo;
+            var newCbSellVal = parseFloat(cbSellInfo.substring(1));
+            element = document.getElementById("cbSellLbl");
+            if(newCbSellVal > cbSellVal){
+              element.className = "label label-success"
+            }
+            else if(newCbSellVal==cbSellVal){
               element.className = "label label-primary"
             }
             else
@@ -100,8 +136,10 @@
       </ul>
     </div>
         <div class="navbar-text navbar-right">
-          <span class="label label-primary" id="bsLbl">Bitstamp:<span id="bsVal">$<%= Bitstamp::Ticker.last %></span></span>
-          <span class="label label-primary" id="cbLbl">Coinbase:<span id="cbVal"><%= @cb2 %></span></span>
+          <span class="label label-primary" id="bsBuyLbl">Bitstamp Buy:<span id="bsBuyVal">$<%= Bitstamp::Ticker.ask %></span></span>
+          <span class="label label-primary" id="bsSellLbl">Bitstamp Sell:<span id="bsSellVal">$<%= Bitstamp::Ticker.bid %></span></span>
+          <span class="label label-primary" id="cbBuyLbl">Coinbase Buy:<span id="cbBuyVal"><%= @cb2 %></span></span>
+          <span class="label label-primary" id="cbSellLbl">Coinbase Sell:<span id="cbSellVal"><%= @cb3 %></span></span>
           <div class="btn-group">
                   <a class="btn btn-default" data-toggle="dropdown" href="#"><%= current_user.username %></a><a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">    <span class="caret"></span>  </a>
                   <ul class="dropdown-menu">
@@ -136,12 +174,19 @@
     var alertEvalFunction;
     function evalAlert(priceDiff){
 
-      if(cbInfo != null && bsInfo != null){
-        diff = Math.abs(parseFloat(bsInfo) - parseFloat(cbInfo.substring(1)));
-        if(diff >= priceDiff){
+      if(cbBuyInfo != null && bsBuyInfo != null && cbSellInfo != null && bsSellInfo != null){
+        diff1 = parseFloat(bsSellInfo) - parseFloat(cbBuyInfo.substring(1));
+        diff2 = parseFloat(cbSellInfo) - parseFloat(bsBuyInfo.substring(1));
+        if(diff1 >= priceDiff || diff2 >= priceDiff){
+
           alertElement = document.getElementById("alertBox");
           alertEvalFunction = setTimeout(function(){evalAlert(priceDiff)}, 1000);
-          alertElement.innerHTML = "<div class=\"alert alert-success alert-dismissable\"><button  onclick=\"window.clearTimeout(alertEvalFunction)\" type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">\&times\;</button>ATTN: There is a difference of $"+round(diff)+" between the two exchanges!</div>";
+          if(diff1>diff2){
+            alertElement.innerHTML = "<div class=\"alert alert-success alert-dismissable\"><button  onclick=\"window.clearTimeout(alertEvalFunction)\" type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">\&times\;</button>ATTN: There is a difference of $"+round(diff1)+" between the two exchanges!</div>";
+          }
+          else if(diff2>diff1){
+            alertElement.innerHTML = "<div class=\"alert alert-success alert-dismissable\"><button  onclick=\"window.clearTimeout(alertEvalFunction)\" type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">\&times\;</button>ATTN: There is a difference of $"+round(diff2)+" between the two exchanges!</div>";
+          }
         }
         else{
           alertElement = document.getElementById("alertBox");

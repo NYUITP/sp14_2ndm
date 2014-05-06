@@ -6,12 +6,13 @@ namespace :s_namespace do
  
  task priceHistory: :environment do
  	        base_url = "https://www.bitstamp.net/api/ticker/"
+ 	        cbUrl = "https://coinbase.com/api/v1/prices/spot_rate"
 		response = RestClient.get base_url
-		@coinbase = Coinbase::Client.new('9MB2hsDaSXvbevZ4', 'Yakw1TObmQrL2k4OMGcCVZqpdNLsPO2S')
 		data = JSON.load response
-		@bitstamp_his = data["last"].to_f
-		@coinbase = Coinbase::Client.new('9MB2hsDaSXvbevZ4', 'Yakw1TObmQrL2k4OMGcCVZqpdNLsPO2S')
-	  	@coinbase_his = @coinbase.buy_price(1).to_f
+		@bitstamp_his = (data["bid"].to_f + data["ask"].to_f)/2
+		response2 = RestClient.get cbUrl
+		data = JSON.load response2
+	  	@coinbase_his = data["amount"].to_f
 		x = PriceHistory.new
 	  	x.bitstamp = @bitstamp_his
 	  	x.coinbase= @coinbase_his

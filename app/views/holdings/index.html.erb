@@ -17,7 +17,7 @@ function round(num)
           dataType: 'json', 
           success: function(data) { 
             var bsBal = parseFloat(data.bitstamp);
-            var bsBalUSD = round(parseFloat(bsBal)*parseFloat(bsInfo));
+            var bsBalUSD = round(parseFloat(bsBal)*parseFloat(bsSellInfo));
             element = document.getElementById("bsBal");
             element.textContent = bsBal;
             element = document.getElementById("bsBalUSD");
@@ -25,7 +25,7 @@ function round(num)
             
 
             var cbBal = parseFloat(data.coinbase);
-            var cbBalUSD = round(parseFloat(cbBal)*parseFloat(cbInfo.substr(1,cbInfo.length)));
+            var cbBalUSD = round(parseFloat(cbBal)*parseFloat(cbSellInfo.substr(1,cbSellInfo.length)));
             element = document.getElementById("cbBal");
             element.textContent = cbBal;
             element = document.getElementById("cbBalUSD");
